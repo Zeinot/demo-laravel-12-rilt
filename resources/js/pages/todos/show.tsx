@@ -95,12 +95,12 @@ export default function Show({ todo }: Props) {
           <h1 className="text-2xl font-bold tracking-tight">View Todo</h1>
           <div className="flex space-x-2">
             <Link href={`/todos/${todo.id}/edit`}>
-              <Button variant="outline">
+              <Button variant="outline" className="cursor-pointer">
                 <EditIcon className="mr-2 h-4 w-4" />
                 Edit
               </Button>
             </Link>
-            <Button variant="destructive" onClick={handleDelete}>
+            <Button variant="destructive" className="cursor-pointer" onClick={handleDelete}>
               <TrashIcon className="mr-2 h-4 w-4" />
               Delete
             </Button>
@@ -153,8 +153,8 @@ export default function Show({ todo }: Props) {
         </Card>
 
         <div className="mt-4 flex justify-end">
-          <Link href="/todos">
-            <Button variant="outline">Back to Todo List</Button>
+          <Link href="/dashboard">
+            <Button variant="outline" className="cursor-pointer">Back to Dashboard</Button>
           </Link>
         </div>
       </div>

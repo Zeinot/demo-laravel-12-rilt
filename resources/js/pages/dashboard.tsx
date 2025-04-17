@@ -149,7 +149,7 @@ export default function Dashboard({ todos = {
       <Head title="Dashboard" />
       <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
         <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col">
+          <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col">
             <h2 className="text-xl font-bold mb-2">Pending Tasks</h2>
             <div className="text-3xl font-bold">
               {todos.data.filter(todo => todo.status === 'pending').length}
@@ -158,7 +158,7 @@ export default function Dashboard({ todos = {
               Tasks waiting to be started
             </div>
           </div>
-          <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col">
+          <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col">
             <h2 className="text-xl font-bold mb-2">In Progress</h2>
             <div className="text-3xl font-bold">
               {todos.data.filter(todo => todo.status === 'in_progress').length}
@@ -167,7 +167,7 @@ export default function Dashboard({ todos = {
               Tasks currently being worked on
             </div>
           </div>
-          <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col">
+          <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col">
             <h2 className="text-xl font-bold mb-2">Completed</h2>
             <div className="text-3xl font-bold">
               {todos.data.filter(todo => todo.status === 'completed').length}
@@ -198,9 +198,9 @@ export default function Dashboard({ todos = {
                     className="w-full"
                   />
                 </div>
-                <div className="flex flex-col gap-4 md:flex-row">
+                <div className="flex flex-row gap-2 w-full md:w-auto">
                   <Select value={status} onValueChange={setStatus}>
-                    <SelectTrigger className="w-[180px] cursor-pointer">
+                    <SelectTrigger className="w-full md:w-[180px] cursor-pointer">
                       <SelectValue placeholder="Status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -212,7 +212,7 @@ export default function Dashboard({ todos = {
                   </Select>
 
                   <Select value={priority} onValueChange={setPriority}>
-                    <SelectTrigger className="w-[180px] cursor-pointer">
+                    <SelectTrigger className="w-full md:w-[180px] cursor-pointer">
                       <SelectValue placeholder="Priority" />
                     </SelectTrigger>
                     <SelectContent>
@@ -226,7 +226,7 @@ export default function Dashboard({ todos = {
               </div>
             </form>
             
-            <div className="overflow-x-auto flex-grow">
+            <div className="overflow-x-auto flex-grow overflow-y-auto max-h-[calc(100vh-450px)]">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -255,9 +255,9 @@ export default function Dashboard({ todos = {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <span className={`px-2 py-1 rounded-full text-xs ${getStatusClass(todo.status)}`}>
-                            {todo.status.replace('_', ' ')}
-                          </span>
+                          <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${getStatusClass(todo.status)}`}>
+                            {todo.status === 'in_progress' ? 'In Progress' : todo.status.charAt(0).toUpperCase() + todo.status.slice(1)}
+                          </div>
                         </TableCell>
                         <TableCell>
                           <span className={`px-2 py-1 rounded-full text-xs ${getPriorityClass(todo.priority)}`}>

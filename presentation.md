@@ -437,33 +437,33 @@ npx shadcn@latest add popover
 />
 ```
 
-## 13. Gestion des Erreurs et Amélioration de la Robustesse
+## 13. Fix for "Cannot read properties of undefined (reading 'last_page')" Error
 
-**Titre:** Sécurisation des Accès aux Données dans les Composants React
+**Title:** Secure Access to Pagination Properties in React Components
 
-**Explications:** Nous avons identifié et résolu un problème d'erreur JavaScript qui se produisait après la création d'une tâche. Cette erreur était liée à un accès non sécurisé aux propriétés de pagination lorsque les données n'étaient pas complètement chargées.
+**Explanation:** We identified and fixed a JavaScript error that occurred after creating a todo. This error was related to insecure access to pagination properties when data was not fully loaded.
 
-**Problème identifié:**
-- Erreur: "Uncaught TypeError: Cannot read properties of undefined (reading 'last_page')"
-- L'erreur survenait lors de l'accès à `todos.meta.last_page` sans vérifier si `todos.meta` existait
-- Ce problème se manifestait principalement pendant les transitions de page ou quand les données n'étaient pas entièrement chargées
+**Identified Issue:**
+- Error: "Uncaught TypeError: Cannot read properties of undefined (reading 'last_page')"
+- The error occurred when accessing `todos.meta.last_page` without checking if `todos.meta` existed
+- This issue mainly occurred during page transitions or when data was not fully loaded
 
-**Fichiers concernés:**
+**Affected Files:**
 
-- `resources/js/pages/todos/index.tsx` - Composant de liste des tâches avec pagination
+- `resources/js/pages/todos/index.tsx` - Todo list component with pagination
 
-**Modifications clés:**
+**Key Changes:**
 
-1. Ajout de vérifications de nullité (null checks) pour toutes les propriétés sensibles:
-   - `todos.meta && todos.meta.last_page > 1` pour vérifier l'existence avant l'accès
-   - `todos.meta?.links && todos.meta.links.map(...)` pour éviter les erreurs lors du mapping
-   - Utilisation de l'opérateur de chaînage optionnel `?.` pour un accès sécurisé aux propriétés
+1. Added null checks for all sensitive properties:
+   - `todos.meta && todos.meta.last_page > 1` to check existence before access
+   - `todos.meta?.links && todos.meta.links.map(...)` to avoid errors during mapping
+   - Used optional chaining operator `?.` for secure access to properties
 
-2. Mise en place de valeurs par défaut pour assurer l'affichage même en cas de données manquantes:
-   - `todos.meta?.from || 0` pour afficher 0 plutôt qu'une erreur si la propriété est indéfinie
-   - Protection similaire pour les propriétés `to` et `total` 
+2. Set default values to ensure display even with missing data:
+   - `todos.meta?.from || 0` to display 0 instead of an error if the property is undefined
+   - Similar protection for `to` and `total` properties
 
-### Extrait du Code (index.tsx)
+### Code Snippet (index.tsx)
 
 ```tsx
 {todos.meta && todos.meta.last_page > 1 && (
@@ -473,19 +473,19 @@ npx shadcn@latest add popover
     </div>
     <div className="flex items-center space-x-2">
       {todos.meta?.links && todos.meta.links.map((link, i) => {
-        // Code de pagination...
+        // Pagination code...
       })}
     </div>
   </div>
 )}
 ```
 
-**Avantages:**
+**Benefits:**
 
-1. Application plus robuste face aux données partiellement chargées
-2. Meilleure expérience utilisateur sans erreurs visibles
-3. Utilisation des fonctionnalités modernes de JavaScript (chaînage optionnel)
-4. Gestion élégante des cas limites lors des transitions de page
+1. More robust application against partially loaded data
+2. Better user experience without visible errors
+3. Use of modern JavaScript features (optional chaining)
+4. Elegant handling of edge cases during page transitions
 
 ## 14. Fix for "Cannot read properties of undefined (reading 'last_page')" Error
 
@@ -822,3 +822,191 @@ useEffect(() => {
 3. Maintien du contexte visuel pendant les opérations
 4. Rétroaction visuelle plus claire sur les éléments interactifs
 5. Performance améliorée des composants React
+
+## 20. Amélioration de la Consistance Visuelle des Cartes de Statistiques
+
+**Titre:** Normalisation des Hauteurs des Cartes de Statistiques et Amélioration des Interactions Utilisateur
+
+**Explications:** Pour améliorer la consistance visuelle de l'interface et l'expérience utilisateur, nous avons standardisé la hauteur des cartes de statistiques dans le tableau de bord et assuré un retour visuel cohérent sur tous les boutons interactifs.
+
+**Modifications apportées:**
+
+1. **Standardisation des cartes de statistiques**
+   - Remplacement de la classe `aspect-video` par une hauteur fixe `h-[200px]`
+   - Maintien de la mise en page flexible à l'intérieur des cartes
+   - Amélioration de la cohérence visuelle entre les différentes tailles d'écran
+
+2. **Application globale du style de curseur interactif**
+   - Ajout de la classe `cursor-pointer` à tous les boutons de l'application
+   - Extension des améliorations précédentes à tous les composants interactifs
+   - Standardisation du comportement au survol sur toutes les pages
+
+**Extrait de code:**
+
+```tsx
+// Carte statistique à hauteur fixe
+<div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col h-[200px]">
+  <h2 className="text-xl font-bold mb-2">Pending Tasks</h2>
+  <div className="text-3xl font-bold">
+    {todos.data.filter(todo => todo.status === 'pending').length}
+  </div>
+  <div className="mt-auto text-sm text-muted-foreground">
+    Tasks waiting to be started
+  </div>
+</div>
+
+// Boutons avec retour visuel et navigation cohérente
+<Button 
+  variant="ghost" 
+  className="cursor-pointer"
+  onClick={() => router.get('/dashboard')}
+>
+  Cancel
+</Button>
+
+<Link href="/dashboard">
+  <Button variant="outline" className="cursor-pointer">
+    Back to Dashboard
+  </Button>
+</Link>
+```
+
+**Avantages:**
+
+1. Présentation plus équilibrée et professionnelle du tableau de bord
+2. Réduction des variations de hauteur lors des changements de contenu
+3. Retour visuel cohérent à travers toute l'application
+4. Meilleure indication des éléments interactifs pour l'utilisateur
+5. Conformité aux attentes des utilisateurs concernant le comportement des interfaces web modernes
+
+## 21. Amélioration de la Hauteur des Cartes et Navigation Cohérente
+
+**Titre:** Adaptation de la Hauteur des Cartes Statistiques et Harmonisation des Interactions
+
+**Explications:** Suivant les principes de conception adaptative, nous avons remplacé les hauteurs fixes des cartes statistiques par des hauteurs flexibles qui s'adaptent au contenu. De plus, nous avons assuré que tous les boutons à travers l'application offrent un retour visuel cohérent et que toutes les navigations ramènent au tableau de bord central.
+
+**Modifications apportées:**
+
+1. **Cartes statistiques à hauteur adaptative**
+   - Remplacement de la hauteur fixe `h-[200px]` par une hauteur flexible
+   - Adaptation automatique de la taille des cartes en fonction de leur contenu
+   - Uniformisation de l'apparence tout en préservant la hiérarchie visuelle
+
+2. **Curseur pointer sur tous les boutons**
+   - Application de la classe `cursor-pointer` sur tous les boutons de l'application
+   - Standardisation des interactions sur toutes les pages incluant:
+     - Création de tâche (`/todos/create`)
+     - Édition de tâche (`/todos/:id/edit`)
+     - Visualisation de tâche (`/todos/:id`)
+
+3. **Navigation cohérente vers le tableau de bord**
+   - Redirection systématique vers le tableau de bord après les actions CRUD
+   - Remplacement de "Back to Todo List" par "Back to Dashboard"
+   - Modification des boutons d'annulation pour revenir au tableau de bord
+
+**Extrait de code:**
+
+```tsx
+// Carte statistique à hauteur adaptative
+<div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col">
+  <h2 className="text-xl font-bold mb-2">Pending Tasks</h2>
+  <div className="text-3xl font-bold">
+    {todos.data.filter(todo => todo.status === 'pending').length}
+  </div>
+  <div className="mt-auto text-sm text-muted-foreground">
+    Tasks waiting to be started
+  </div>
+</div>
+
+// Boutons avec retour visuel et navigation cohérente
+<Button 
+  variant="outline" 
+  className="cursor-pointer"
+  onClick={() => router.get('/dashboard')}
+>
+  Cancel
+</Button>
+
+<Link href="/dashboard">
+  <Button variant="outline" className="cursor-pointer">
+    Back to Dashboard
+  </Button>
+</Link>
+```
+
+**Avantages:**
+
+1. Meilleure adaptation des cartes statistiques aux différentes quantités de contenu
+2. Expérience utilisateur plus intuitive avec des indicateurs visuels cohérents
+3. Navigation plus simple et prévisible dans toute l'application
+4. Maintien de la cohérence stylistique à travers toutes les pages
+5. Amélioration de l'accessibilité avec un retour visuel clair sur les éléments interactifs
+
+## 22. Optimisation de l'Interface pour les Appareils Mobiles
+
+**Titre:** Amélioration de la Disposition et de l'Expérience Mobile
+
+**Explications:** Suite à l'analyse des captures d'écran de l'application sur des appareils mobiles, nous avons identifié plusieurs points d'amélioration pour optimiser l'interface utilisateur sur les petits écrans. L'objectif était de mieux utiliser l'espace horizontal limité et d'améliorer la navigation verticale.
+
+**Modifications apportées:**
+
+1. **Réorganisation des Filtres en Ligne**
+   - Remplacement de la disposition verticale des filtres par une disposition horizontale sur mobile
+   - Utilisation de `flex-row gap-2` au lieu de `flex-col gap-4 md:flex-row`
+   - Les filtres de statut et de priorité sont maintenant placés côte à côte même sur petits écrans
+
+2. **Adaptation Dynamique des Sélecteurs**
+   - Implémentation de largeurs adaptatives pour les sélecteurs: `w-full md:w-[180px]`
+   - Les sélecteurs occupent toute la largeur disponible sur mobile
+   - Taille fixe maintenue sur les écrans plus larges pour une apparence cohérente
+
+3. **Optimisation de l'Affichage des Badges**
+   - Amélioration de la présentation du texte "In Progress" pour éviter les coupures
+   - Ajout de `whitespace-nowrap` et formatage conditionnel du texte
+   - Utilisation de `inline-flex` pour un alignement optimal des éléments
+
+4. **Gestion Efficace de la Hauteur de Table**
+   - Limitation de la hauteur de la table avec un défilement vertical: `max-h-[calc(100vh-450px)]`
+   - Ajout de `overflow-y-auto` pour permettre le défilement du contenu
+   - Amélioration de l'expérience utilisateur en évitant les pages excessivement longues
+
+**Extrait de code:**
+
+```tsx
+// Disposition en ligne des filtres sur mobile
+<div className="flex flex-row gap-2 w-full md:w-auto">
+  <Select value={status} onValueChange={setStatus}>
+    <SelectTrigger className="w-full md:w-[180px] cursor-pointer">
+      <SelectValue placeholder="Status" />
+    </SelectTrigger>
+    {/* Options de sélection */}
+  </Select>
+  
+  <Select value={priority} onValueChange={setPriority}>
+    <SelectTrigger className="w-full md:w-[180px] cursor-pointer">
+      <SelectValue placeholder="Priority" />
+    </SelectTrigger>
+    {/* Options de sélection */}
+  </Select>
+</div>
+
+// Amélioration des badges de statut
+<div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${getStatusClass(todo.status)}`}>
+  {todo.status === 'in_progress' ? 'In Progress' : todo.status.charAt(0).toUpperCase() + todo.status.slice(1)}
+</div>
+
+// Table avec hauteur limitée et défilement
+<div className="overflow-x-auto flex-grow overflow-y-auto max-h-[calc(100vh-450px)]">
+  <Table>
+    {/* Contenu de la table */}
+  </Table>
+</div>
+```
+
+**Avantages:**
+
+1. Meilleure utilisation de l'espace horizontal limité sur les appareils mobiles
+2. Réduction du défilement vertical excessif grâce à la disposition optimisée
+3. Expérience utilisateur améliorée avec des badges de statut lisibles
+4. Navigation facilitée dans les listes de tâches grâce au défilement contrôlé
+5. Interface réactive qui s'adapte intelligemment aux différentes tailles d'écran

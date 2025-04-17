@@ -224,7 +224,7 @@ export default function Edit({ todo }: Props) {
                         <FormControl>
                           <Button
                             variant={"outline"}
-                            className={`w-full pl-3 text-left font-normal ${!field.value && "text-muted-foreground"}`}
+                            className={`w-full pl-3 text-left font-normal cursor-pointer ${!field.value && "text-muted-foreground"}`}
                           >
                             {field.value ? (
                               format(field.value, "PPP")
@@ -256,11 +256,12 @@ export default function Edit({ todo }: Props) {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => router.get(`/todos/${todo.id}`)}
+                  className="cursor-pointer"
+                  onClick={() => router.get(`/dashboard`)}
                 >
                   Cancel
                 </Button>
-                <Button type="submit">Update Todo</Button>
+                <Button type="submit" className="cursor-pointer">Update Todo</Button>
               </div>
             </form>
           </Form>

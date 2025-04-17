@@ -120,7 +120,7 @@ export default function Index({ todos, filters }: Props) {
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold tracking-tight">Todo List</h1>
           <Link href="/todos/create">
-            <Button>
+            <Button className="cursor-pointer">
               <PlusIcon className="mr-2 h-4 w-4" />
               Add New Todo
             </Button>
@@ -163,7 +163,7 @@ export default function Index({ todos, filters }: Props) {
                   </SelectContent>
                 </Select>
 
-                <Button type="submit">Filter</Button>
+                <Button type="submit" className="cursor-pointer">Filter</Button>
               </div>
             </div>
           </form>
@@ -208,10 +208,10 @@ export default function Index({ todos, filters }: Props) {
                     <TableCell>{formatDate(todo.due_date)}</TableCell>
                     <TableCell className="text-right space-x-2">
                       <Link href={`/todos/${todo.id}`}>
-                        <Button variant="ghost" size="sm">View</Button>
+                        <Button variant="ghost" size="sm" className="cursor-pointer">View</Button>
                       </Link>
                       <Link href={`/todos/${todo.id}/edit`}>
-                        <Button variant="ghost" size="sm">Edit</Button>
+                        <Button variant="ghost" size="sm" className="cursor-pointer">Edit</Button>
                       </Link>
                       <Button 
                         variant="ghost" 
@@ -221,6 +221,7 @@ export default function Index({ todos, filters }: Props) {
                             router.delete(`/todos/${todo.id}`);
                           }
                         }}
+                        className="cursor-pointer"
                       >
                         Delete
                       </Button>
@@ -255,7 +256,7 @@ export default function Index({ todos, filters }: Props) {
                       variant={link.active ? "default" : "outline"}
                       size="sm"
                       onClick={() => link.url && router.get(link.url)}
-                      className="h-9 w-9"
+                      className="h-9 w-9 cursor-pointer"
                     >
                       {link.label === "&laquo; Previous" 
                         ? "←" 
