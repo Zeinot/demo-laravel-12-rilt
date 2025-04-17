@@ -196,7 +196,7 @@ public function dashboard(Request $request)
 
 ### Composant Dashboard (dashboard.tsx)
 
-```tsx
+```jsx
 // Cartes statistiques
 <div className="grid auto-rows-min gap-4 md:grid-cols-3">
   <div className="border-sidebar-border/70 relative overflow-hidden rounded-xl border bg-white p-4 flex flex-col">
@@ -301,7 +301,7 @@ npx shadcn@latest add popover
 
 ### Aperçu du Formulaire (create.tsx)
 
-```tsx
+```jsx
 <FormField
   control={form.control}
   name="due_date"
@@ -413,7 +413,7 @@ npx shadcn@latest add popover
 
 ### Aperçu du Formulaire (create.tsx)
 
-```tsx
+```jsx
 <FormField
   control={form.control}
   name="due_date"
@@ -479,7 +479,7 @@ We identified and fixed a JavaScript error that occurred after creating a todo. 
 
 ### Code Snippet (index.tsx)
 
-```tsx
+```jsx
 {todos.meta && todos.meta.last_page > 1 && (
   <div className="flex items-center justify-between p-4 border-t">
     <div className="text-sm text-muted-foreground">
@@ -528,7 +528,7 @@ Pour améliorer la cohérence visuelle et l'accessibilité des actions dans le t
 
 **Extrait de code:**
 
-```tsx
+```jsx
 // Mise en œuvre des boutons shadcn avec différentes variantes
 <Button
   onClick={() => router.visit(`/todos/${todo.id}`)}
@@ -619,7 +619,7 @@ Pour améliorer l'expérience utilisateur et simplifier la navigation, nous avon
 
 **Extrait de code:**
 
-```tsx
+```jsx
 // Filtrage automatique des todos
 const applyFilters = useCallback(() => {
   router.get('/dashboard', { search, status, priority }, {
@@ -649,7 +649,7 @@ useEffect(() => {
 
 **Extrait de code:**
 
-```tsx
+```jsx
 // Carte statistique à hauteur fixe
 <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col h-[200px]">
   <h2 className="text-xl font-bold mb-2">Pending Tasks</h2>
@@ -712,7 +712,7 @@ Suivant les principes de conception adaptative, nous avons remplacé les hauteur
 
 **Extrait de code:**
 
-```tsx
+```jsx
 // Carte statistique à hauteur adaptative
 <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col">
   <h2 className="text-xl font-bold mb-2">Pending Tasks</h2>
@@ -818,7 +818,7 @@ Suite à l'analyse des captures d'écran de l'application sur des appareils mobi
 
 **Extrait de code:**
 
-```tsx
+```jsx
 // Disposition en ligne des filtres sur mobile
 <div className="flex flex-row gap-2 w-full md:w-auto">
   <Select value={status} onValueChange={setStatus}>

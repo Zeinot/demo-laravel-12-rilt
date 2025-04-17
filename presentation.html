@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>presentation.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="pr%C3%A9sentation-du-syst%C3%A8me-de-gestion-des-t%C3%A2ches-todos">Présentation du Système de Gestion des Tâches (Todos)</h1>
+<h2 id="1-introduction-%C3%A0-lapplication">1. Introduction à l'Application</h2>
+<h3 id="impl%C3%A9mentation-dun-syst%C3%A8me-de-gestion-des-t%C3%A2ches-avec-laravel-12-et-react">Implémentation d'un Système de Gestion des Tâches avec Laravel 12 et React</h3>
+<p>Cette application utilise Laravel 12 comme framework backend et React avec ShadcnUI pour le frontend. L'objectif est de créer un système de gestion des tâches (todos) complet avec authentification des utilisateurs et fonctionnalités CRUD, dans une interface utilisateur moderne et réactive.</p>
+<p><strong>Fichiers concernés:</strong></p>
+<ul>
+<li><code>app/Models/Todo.php</code> - Définition du modèle Todo avec ses relations et attributs</li>
+<li><code>database/migrations/2025_04_17_174106_create_todos_table.php</code> - Migration pour créer la table todos</li>
+</ul>
+<h2 id="2-cr%C3%A9ation-des-mod%C3%A8les-et-migrations">2. Création des Modèles et Migrations</h2>
+<h3 id="mise-en-place-de-la-structure-de-donn%C3%A9es">Mise en Place de la Structure de Données</h3>
+<p>Nous avons créé le modèle Todo et sa migration correspondante pour définir la structure de la base de données. Nous avons ajouté des champs pour le titre, la description, le statut, la priorité et la date d'échéance.</p>
+<p><strong>Fichiers concernés:</strong></p>
+<ul>
+<li><code>app/Models/Todo.php</code> - Définition du modèle Todo avec ses relations et attributs</li>
+<li><code>database/migrations/2025_04_17_174106_create_todos_table.php</code> - Migration pour créer la table todos</li>
+</ul>
+<h2 id="3-configuration-des-relations-entre-mod%C3%A8les">3. Configuration des Relations entre Modèles</h2>
+<h3 id="%C3%A9tablissement-des-relations-entre-utilisateurs-et-t%C3%A2ches">Établissement des Relations entre Utilisateurs et Tâches</h3>
+<p>Nous avons configuré la relation one-to-many entre les utilisateurs et les tâches pour garantir que chaque tâche appartient à un utilisateur spécifique.</p>
+<p><strong>Fichiers concernés:</strong></p>
+<ul>
+<li><code>app/Models/Todo.php</code> - Ajout de la relation belongsTo avec User</li>
+<li><code>app/Models/User.php</code> - Ajout de la relation hasMany avec Todo</li>
+</ul>
+<h2 id="4-d%C3%A9veloppement-du-contr%C3%B4leur-des-t%C3%A2ches">4. Développement du Contrôleur des Tâches</h2>
+<h3 id="impl%C3%A9mentation-des-fonctionnalit%C3%A9s-crud">Implémentation des Fonctionnalités CRUD</h3>
+<p>Nous avons créé le contrôleur TodoController avec toutes les méthodes nécessaires pour gérer les opérations CRUD (Création, Lecture, Mise à jour, Suppression) sur les tâches. Nous avons également ajouté la pagination, la recherche et les filtres.</p>
+<p><strong>Fichiers concernés:</strong></p>
+<ul>
+<li><code>app/Http/Controllers/TodoController.php</code> - Contrôleur avec les méthodes index, create, store, show, edit, update et destroy</li>
+</ul>
+<h3 id="commandes-artisan-utilis%C3%A9es">Commandes Artisan Utilisées</h3>
+<p>Pour créer le modèle, la migration et le contrôleur, nous avons utilisé les commandes Artisan suivantes:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Création du modèle Todo avec sa migration (-m)</span>
+php artisan make:model Todo -m
+
+<span class="hljs-comment"># Création du contrôleur de ressource lié au modèle Todo</span>
+php artisan make:controller TodoController --resource --model=Todo
+</div></code></pre>
+<p>Ces commandes génèrent automatiquement la structure de base du code, que nous avons ensuite personnalisée selon les besoins de l'application.</p>
+<h2 id="5-cr%C3%A9ation-des-politiques-dautorisation">5. Création des Politiques d'Autorisation</h2>
+<h3 id="s%C3%A9curisation-de-lacc%C3%A8s-aux-donn%C3%A9es">Sécurisation de l'Accès aux Données</h3>
+<p>Nous avons défini des politiques d'autorisation pour garantir que les utilisateurs ne peuvent accéder et modifier que leurs propres tâches.</p>
+<p><strong>Fichiers concernés:</strong></p>
+<ul>
+<li><code>app/Policies/TodoPolicy.php</code> - Définition des règles d'autorisation pour différentes actions</li>
+</ul>
+<h2 id="6-modifications-apport%C3%A9es">6. Modifications Apportées</h2>
+<h3 id="migration-createtodostablephp">Migration (create_todos_table.php)</h3>
+<pre class="hljs"><code><div>Schema::create(<span class="hljs-string">'todos'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Blueprint $table)</span> </span>{
+    $table-&gt;id();
+    $table-&gt;foreignId(<span class="hljs-string">'user_id'</span>)-&gt;constrained()-&gt;onDelete(<span class="hljs-string">'cascade'</span>);
+    $table-&gt;string(<span class="hljs-string">'title'</span>);
+    $table-&gt;text(<span class="hljs-string">'description'</span>)-&gt;nullable();
+    $table-&gt;enum(<span class="hljs-string">'status'</span>, [<span class="hljs-string">'pending'</span>, <span class="hljs-string">'in_progress'</span>, <span class="hljs-string">'completed'</span>])-&gt;default(<span class="hljs-string">'pending'</span>);
+    $table-&gt;enum(<span class="hljs-string">'priority'</span>, [<span class="hljs-string">'low'</span>, <span class="hljs-string">'medium'</span>, <span class="hljs-string">'high'</span>])-&gt;default(<span class="hljs-string">'medium'</span>);
+    $table-&gt;date(<span class="hljs-string">'due_date'</span>)-&gt;nullable();
+    $table-&gt;timestamps();
+});
+</div></code></pre>
+<h3 id="mod%C3%A8le-todo-todophp">Modèle Todo (Todo.php)</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">protected</span> $fillable = [
+    <span class="hljs-string">'user_id'</span>,
+    <span class="hljs-string">'title'</span>,
+    <span class="hljs-string">'description'</span>,
+    <span class="hljs-string">'status'</span>,
+    <span class="hljs-string">'priority'</span>,
+    <span class="hljs-string">'due_date'</span>,
+];
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">user</span><span class="hljs-params">()</span>: <span class="hljs-title">BelongsTo</span>
+</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;belongsTo(User::class);
+}
+</div></code></pre>
+<h3 id="contr%C3%B4leur-todocontrollerphp">Contrôleur (TodoController.php)</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span><span class="hljs-params">(Request $request)</span>
+</span>{
+    $query = Todo::query()-&gt;where(<span class="hljs-string">'user_id'</span>, Auth::id());
+
+    <span class="hljs-comment">// Apply search if provided</span>
+    <span class="hljs-keyword">if</span> ($request-&gt;has(<span class="hljs-string">'search'</span>)) {
+        $searchTerm = $request-&gt;search;
+        $query-&gt;where(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">($q)</span> <span class="hljs-title">use</span> <span class="hljs-params">($searchTerm)</span> </span>{
+            $q-&gt;where(<span class="hljs-string">'title'</span>, <span class="hljs-string">'like'</span>, <span class="hljs-string">"%{$searchTerm}%"</span>)
+              -&gt;orWhere(<span class="hljs-string">'description'</span>, <span class="hljs-string">'like'</span>, <span class="hljs-string">"%{$searchTerm}%"</span>);
+        });
+    }
+
+    <span class="hljs-comment">// Paginate results</span>
+    $todos = $query-&gt;paginate(<span class="hljs-number">10</span>)-&gt;withQueryString();
+
+    <span class="hljs-keyword">return</span> Inertia::render(<span class="hljs-string">'todos/index'</span>, [
+        <span class="hljs-string">'todos'</span> =&gt; $todos,
+        <span class="hljs-string">'filters'</span> =&gt; [
+            <span class="hljs-string">'search'</span> =&gt; $request-&gt;search ?? <span class="hljs-string">''</span>,
+            <span class="hljs-string">'status'</span> =&gt; $request-&gt;status ?? <span class="hljs-string">'all'</span>,
+            <span class="hljs-string">'priority'</span> =&gt; $request-&gt;priority ?? <span class="hljs-string">'all'</span>,
+        ],
+    ]);
+}
+</div></code></pre>
+<h2 id="7-int%C3%A9gration-des-t%C3%A2ches-au-tableau-de-bord">7. Intégration des Tâches au Tableau de Bord</h2>
+<p><strong>Titre:</strong> Fusion des Fonctionnalités Todo dans le Tableau de Bord Principal</p>
+<p><strong>Explications:</strong> Nous avons intégré le système de gestion des tâches directement dans le tableau de bord pour améliorer l'expérience utilisateur. Cette approche permet aux utilisateurs de visualiser et gérer leurs tâches sans quitter la page principale.</p>
+<p><strong>Fichiers concernés:</strong></p>
+<ul>
+<li><code>resources/js/pages/dashboard.tsx</code> - Interface du tableau de bord avec les tâches intégrées</li>
+<li><code>resources/js/components/ui/table.tsx</code> - Composant de table pour l'affichage des tâches</li>
+<li><code>app/Http/Controllers/TodoController.php</code> - Ajout de la méthode dashboard pour charger les tâches</li>
+<li><code>routes/web.php</code> - Mise à jour de la route du tableau de bord</li>
+</ul>
+<p><strong>Modifications clés:</strong></p>
+<ol>
+<li>Ajout de cartes statistiques montrant le nombre de tâches par statut</li>
+<li>Intégration d'une table de tâches avec recherche et filtres</li>
+<li>Création d'indicateurs visuels pour le statut et la priorité des tâches</li>
+<li>Implémentation de la pagination pour gérer un grand nombre de tâches</li>
+</ol>
+<h3 id="mise-%C3%A0-jour-du-contr%C3%B4leur-todocontrollerphp">Mise à jour du Contrôleur (TodoController.php)</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dashboard</span><span class="hljs-params">(Request $request)</span>
+</span>{
+    $query = Todo::query()-&gt;where(<span class="hljs-string">'user_id'</span>, Auth::id());
+
+    <span class="hljs-comment">// Appliquer la recherche si fournie</span>
+    <span class="hljs-keyword">if</span> ($request-&gt;has(<span class="hljs-string">'search'</span>)) {
+        $searchTerm = $request-&gt;search;
+        $query-&gt;where(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">($q)</span> <span class="hljs-title">use</span> <span class="hljs-params">($searchTerm)</span> </span>{
+            $q-&gt;where(<span class="hljs-string">'title'</span>, <span class="hljs-string">'like'</span>, <span class="hljs-string">"%{$searchTerm}%"</span>)
+              -&gt;orWhere(<span class="hljs-string">'description'</span>, <span class="hljs-string">'like'</span>, <span class="hljs-string">"%{$searchTerm}%"</span>);
+        });
+    }
+
+    <span class="hljs-comment">// Appliquer les filtres si fournis</span>
+    <span class="hljs-keyword">if</span> ($request-&gt;has(<span class="hljs-string">'status'</span>) &amp;&amp; $request-&gt;status !== <span class="hljs-string">'all'</span>) {
+        $query-&gt;where(<span class="hljs-string">'status'</span>, $request-&gt;status);
+    }
+    
+    <span class="hljs-keyword">if</span> ($request-&gt;has(<span class="hljs-string">'priority'</span>) &amp;&amp; $request-&gt;priority !== <span class="hljs-string">'all'</span>) {
+        $query-&gt;where(<span class="hljs-string">'priority'</span>, $request-&gt;priority);
+    }
+
+    <span class="hljs-comment">// Trier par date de création (plus récent d'abord)</span>
+    $query-&gt;orderBy(<span class="hljs-string">'created_at'</span>, <span class="hljs-string">'desc'</span>);
+
+    <span class="hljs-comment">// Paginer les résultats</span>
+    $todos = $query-&gt;paginate(<span class="hljs-number">10</span>)-&gt;withQueryString();
+
+    <span class="hljs-keyword">return</span> Inertia::render(<span class="hljs-string">'dashboard'</span>, [
+        <span class="hljs-string">'todos'</span> =&gt; $todos,
+        <span class="hljs-string">'filters'</span> =&gt; [
+            <span class="hljs-string">'search'</span> =&gt; $request-&gt;search ?? <span class="hljs-string">''</span>,
+            <span class="hljs-string">'status'</span> =&gt; $request-&gt;status ?? <span class="hljs-string">'all'</span>,
+            <span class="hljs-string">'priority'</span> =&gt; $request-&gt;priority ?? <span class="hljs-string">'all'</span>,
+        ],
+    ]);
+}
+</div></code></pre>
+<h3 id="composant-dashboard-dashboardtsx">Composant Dashboard (dashboard.tsx)</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Cartes statistiques</span>
+&lt;div className=<span class="hljs-string">"grid auto-rows-min gap-4 md:grid-cols-3"</span>&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"border-sidebar-border/70 relative overflow-hidden rounded-xl border bg-white p-4 flex flex-col"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"text-xl font-bold mb-2"</span>&gt;</span>Tâches en Attente<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"text-3xl font-bold"</span>&gt;</span>
+      {todos.data.filter(todo =&gt; todo.status === 'pending').length}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"mt-auto text-sm text-muted-foreground"</span>&gt;</span>
+      Tâches qui attendent d'être commencées
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"border-sidebar-border/70 relative overflow-hidden rounded-xl border bg-white p-4 flex flex-col"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"text-xl font-bold mb-2"</span>&gt;</span>En Cours<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"text-3xl font-bold"</span>&gt;</span>
+      {todos.data.filter(todo =&gt; todo.status === 'in_progress').length}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"mt-auto text-sm text-muted-foreground"</span>&gt;</span>
+      Tâches actuellement en cours de réalisation
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"border-sidebar-border/70 relative overflow-hidden rounded-xl border bg-white p-4 flex flex-col"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"text-xl font-bold mb-2"</span>&gt;</span>Terminées<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"text-3xl font-bold"</span>&gt;</span>
+      {todos.data.filter(todo =&gt; todo.status === 'completed').length}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"mt-auto text-sm text-muted-foreground"</span>&gt;</span>
+      Tâches déjà terminées
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+&lt;<span class="hljs-regexp">/div&gt;
+</span></div></code></pre>
+<h2 id="8-optimisation-de-la-gestion-des-middleware">8. Optimisation de la Gestion des Middleware</h2>
+<p><strong>Titre:</strong> Mise à Jour des Pratiques de Sécurité pour Laravel 12</p>
+<p><strong>Explications:</strong> Nous avons adapté notre application pour suivre les meilleures pratiques de Laravel 12 concernant la gestion des middleware. Dans Laravel 12, l'approche recommandée est de définir les middleware au niveau des routes plutôt que dans les constructeurs des contrôleurs.</p>
+<p><strong>Fichiers concernés:</strong></p>
+<ul>
+<li><code>app/Http/Controllers/TodoController.php</code> - Suppression du middleware dans le constructeur</li>
+<li><code>routes/web.php</code> - Confirmation que les middleware d'authentification sont correctement appliqués</li>
+</ul>
+<p><strong>Modifications clés:</strong></p>
+<ol>
+<li>Suppression de la méthode <code>middleware('auth')</code> dans le constructeur de TodoController</li>
+<li>Utilisation du groupe de middleware <code>['auth', 'verified']</code> dans les routes</li>
+<li>Amélioration de la structure en suivant les recommandations de Laravel 12</li>
+<li>Réduction des risques d'erreurs liées aux changements d'API dans Laravel 12</li>
+</ol>
+<h2 id="9-correction-des-probl%C3%A8mes-de-rendu-inertia">9. Correction des Problèmes de Rendu Inertia</h2>
+<p><strong>Titre:</strong> Résolution du Problème &quot;Page not found&quot; dans le Tableau de Bord</p>
+<p><strong>Explications:</strong> Nous avons identifié et corrigé un problème de sensibilité à la casse dans le nom de la vue Inertia qui provoquait une erreur &quot;Page not found&quot; lors de l'accès au tableau de bord. Dans Inertia.js, le nom de la vue doit correspondre exactement au nom du fichier, y compris la casse.</p>
+<p><strong>Fichiers concernés:</strong></p>
+<ul>
+<li><code>app/Http/Controllers/TodoController.php</code> - Correction du nom de la vue dans la méthode dashboard</li>
+<li><code>resources/js/pages/dashboard.tsx</code> - Vérification de la correspondance avec le nom utilisé dans le contrôleur</li>
+</ul>
+<p><strong>Modifications clés:</strong></p>
+<ol>
+<li>Modifié <code>Inertia::render('Dashboard', [])</code> en <code>Inertia::render('dashboard', [])</code></li>
+<li>Assuré que la casse du nom de fichier correspond exactement à ce qui est utilisé dans Inertia::render()</li>
+<li>Vérifié que les routes sont correctement configurées dans web.php</li>
+<li>Confirmé que le middleware d'authentification fonctionne correctement</li>
+</ol>
+<h2 id="10-am%C3%A9lioration-de-la-navigation-inertia">10. Amélioration de la Navigation Inertia</h2>
+<h3 id="optimisation-des-interactions-utilisateur-dans-le-tableau-de-bord">Optimisation des Interactions Utilisateur dans le Tableau de Bord</h3>
+<p>Pour améliorer l'expérience utilisateur et résoudre les problèmes d'affichage du formulaire de création de tâches, nous avons identifié et résolu un problème de navigation empêchant le bouton &quot;Add New Todo&quot; de fonctionner correctement. La solution implique une modification du mode de navigation pour mieux s'intégrer avec le système de routage d'Inertia.js.</p>
+<p><strong>Problème identifié:</strong></p>
+<ul>
+<li>Erreur: &quot;Failed to resolve import '@/components/ui/form' from 'resources/js/pages/todos/create.tsx'. Does the file exist?&quot;</li>
+<li>Le formulaire de création faisait référence à des composants UI qui n'étaient pas encore installés</li>
+<li>Ces dépendances manquantes empêchaient le chargement de la page de création</li>
+</ul>
+<p><strong>Composants installés:</strong></p>
+<ul>
+<li><code>calendar</code>: Pour la sélection de dates (date d'échéance des tâches)</li>
+<li><code>form</code>: Pour la structure et la validation du formulaire</li>
+<li><code>textarea</code>: Pour les descriptions longues des tâches</li>
+<li><code>popover</code>: Pour les interactions contextuelles (notamment le sélecteur de date)</li>
+</ul>
+<p><strong>Commandes utilisées:</strong></p>
+<pre class="hljs"><code><div>npx shadcn@latest add calendar
+npx shadcn@latest add form
+npx shadcn@latest add textarea
+npx shadcn@latest add popover
+</div></code></pre>
+<p><strong>Avantages:</strong></p>
+<ol>
+<li>Interface utilisateur moderne et cohérente grâce à la bibliothèque Shadcn UI</li>
+<li>Meilleure gestion des dates et validation des formulaires</li>
+<li>Expérience utilisateur améliorée avec des composants interactifs</li>
+<li>Intégration parfaite avec le système de thèmes de l'application</li>
+</ol>
+<h3 id="aper%C3%A7u-du-formulaire-createtsx">Aperçu du Formulaire (create.tsx)</h3>
+<pre class="hljs"><code><div>&lt;FormField
+  control={form.control}
+  name=<span class="hljs-string">"due_date"</span>
+  render={({ field }) =&gt; (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">FormItem</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"flex flex-col"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">FormLabel</span>&gt;</span>Date d'échéance<span class="hljs-tag">&lt;/<span class="hljs-name">FormLabel</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Popover</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">PopoverTrigger</span> <span class="hljs-attr">asChild</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">FormControl</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+              <span class="hljs-attr">variant</span>=<span class="hljs-string">{</span>"<span class="hljs-attr">outline</span>"}
+              <span class="hljs-attr">className</span>=<span class="hljs-string">{</span>`<span class="hljs-attr">w-full</span> <span class="hljs-attr">pl-3</span> <span class="hljs-attr">text-left</span> <span class="hljs-attr">font-normal</span> ${!<span class="hljs-attr">field.value</span> &amp;&amp; "<span class="hljs-attr">text-muted-foreground</span>"}`}
+            &gt;</span>
+              {field.value ? (
+                format(field.value, "PPP")
+              ) : (
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Sélectionner une date<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+              )}
+              <span class="hljs-tag">&lt;<span class="hljs-name">CalendarIcon</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ml-auto h-4 w-4 opacity-50"</span> /&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">FormControl</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">PopoverTrigger</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">PopoverContent</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"w-auto p-0"</span> <span class="hljs-attr">align</span>=<span class="hljs-string">"start"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Calendar</span>
+            <span class="hljs-attr">mode</span>=<span class="hljs-string">"single"</span>
+            <span class="hljs-attr">selected</span>=<span class="hljs-string">{field.value</span> ?? <span class="hljs-attr">undefined</span>}
+            <span class="hljs-attr">onSelect</span>=<span class="hljs-string">{field.onChange}</span>
+            <span class="hljs-attr">initialFocus</span>
+          /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">PopoverContent</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Popover</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">FormMessage</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">FormItem</span>&gt;</span></span>
+  )}
+/&gt;
+</div></code></pre>
+<h2 id="11-correction-de-la-sensibilit%C3%A9-%C3%A0-la-casse-dans-les-chemins-inertia">11. Correction de la Sensibilité à la Casse dans les Chemins Inertia</h2>
+<p><strong>Titre:</strong> Résolution des Problèmes de Navigation liés à la Casse des Fichiers</p>
+<p><strong>Explications:</strong> Nous avons identifié et résolu un problème critique lié à la sensibilité à la casse dans les chemins de fichiers. Cette incohérence empêchait le système de trouver les composants React lors de la navigation.</p>
+<p><strong>Problème identifié:</strong></p>
+<ul>
+<li>Erreur: &quot;Page not found: ./pages/Todos/Create.tsx&quot;</li>
+<li>Le contrôleur utilisait des chemins capitalisés (ex: 'Todos/Create')</li>
+<li>Les fichiers réels utilisaient une structure en minuscules (ex: 'todos/create.tsx')</li>
+</ul>
+<p><strong>Fichiers concernés:</strong></p>
+<ul>
+<li><code>app/Http/Controllers/TodoController.php</code> - Correction des chemins dans les méthodes render()</li>
+<li><code>resources/js/pages/todos/</code> - Structure de fichiers en minuscules</li>
+</ul>
+<p><strong>Modifications clés:</strong></p>
+<ol>
+<li>Alignement des chemins Inertia sur la structure réelle du système de fichiers</li>
+<li>Modification de tous les appels Inertia::render() pour utiliser des chemins en minuscules:
+<ul>
+<li>'Todos/Create' → 'todos/create'</li>
+<li>'Todos/Index' → 'todos/index'</li>
+<li>'Todos/Show' → 'todos/show'</li>
+<li>'Todos/Edit' → 'todos/edit'</li>
+</ul>
+</li>
+<li>Application d'une convention de nommage cohérente dans toute l'application</li>
+</ol>
+<h3 id="extrait-du-code-todocontrollerphp">Extrait du Code (TodoController.php)</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">/**
+ * Show the form for creating a new resource.
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-keyword">return</span> Inertia::render(<span class="hljs-string">'todos/create'</span>);
+}
+</div></code></pre>
+<h2 id="12-installation-des-composants-shadcn-ui-pour-le-formulaire-de-cr%C3%A9ation">12. Installation des Composants Shadcn UI pour le Formulaire de Création</h2>
+<h3 id="mise-en-place-des-composants-ui-modernes-pour-la-gestion-des-t%C3%A2ches">Mise en Place des Composants UI Modernes pour la Gestion des Tâches</h3>
+<p>Pour améliorer l'expérience utilisateur et résoudre les problèmes d'affichage du formulaire de création de tâches, nous avons installé plusieurs composants Shadcn UI nécessaires au bon fonctionnement de l'application.</p>
+<p><strong>Problème identifié:</strong></p>
+<ul>
+<li>Erreur: &quot;Failed to resolve import '@/components/ui/form' from 'resources/js/pages/todos/create.tsx'. Does the file exist?&quot;</li>
+<li>Le formulaire de création faisait référence à des composants UI qui n'étaient pas encore installés</li>
+<li>Ces dépendances manquantes empêchaient le chargement de la page de création</li>
+</ul>
+<p><strong>Composants installés:</strong></p>
+<ul>
+<li><code>calendar</code>: Pour la sélection de dates (date d'échéance des tâches)</li>
+<li><code>form</code>: Pour la structure et la validation du formulaire</li>
+<li><code>textarea</code>: Pour les descriptions longues des tâches</li>
+<li><code>popover</code>: Pour les interactions contextuelles (notamment le sélecteur de date)</li>
+</ul>
+<p><strong>Commandes utilisées:</strong></p>
+<pre class="hljs"><code><div>npx shadcn@latest add calendar
+npx shadcn@latest add form
+npx shadcn@latest add textarea
+npx shadcn@latest add popover
+</div></code></pre>
+<p><strong>Avantages:</strong></p>
+<ol>
+<li>Interface utilisateur moderne et cohérente grâce à la bibliothèque Shadcn UI</li>
+<li>Meilleure gestion des dates et validation des formulaires</li>
+<li>Expérience utilisateur améliorée avec des composants interactifs</li>
+<li>Intégration parfaite avec le système de thèmes de l'application</li>
+</ol>
+<h3 id="aper%C3%A7u-du-formulaire-createtsx">Aperçu du Formulaire (create.tsx)</h3>
+<pre class="hljs"><code><div>&lt;FormField
+  control={form.control}
+  name=<span class="hljs-string">"due_date"</span>
+  render={({ field }) =&gt; (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">FormItem</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"flex flex-col"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">FormLabel</span>&gt;</span>Date d'échéance<span class="hljs-tag">&lt;/<span class="hljs-name">FormLabel</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Popover</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">PopoverTrigger</span> <span class="hljs-attr">asChild</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">FormControl</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+              <span class="hljs-attr">variant</span>=<span class="hljs-string">{</span>"<span class="hljs-attr">outline</span>"}
+              <span class="hljs-attr">className</span>=<span class="hljs-string">{</span>`<span class="hljs-attr">w-full</span> <span class="hljs-attr">pl-3</span> <span class="hljs-attr">text-left</span> <span class="hljs-attr">font-normal</span> ${!<span class="hljs-attr">field.value</span> &amp;&amp; "<span class="hljs-attr">text-muted-foreground</span>"}`}
+            &gt;</span>
+              {field.value ? (
+                format(field.value, "PPP")
+              ) : (
+                <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Sélectionner une date<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+              )}
+              <span class="hljs-tag">&lt;<span class="hljs-name">CalendarIcon</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"ml-auto h-4 w-4 opacity-50"</span> /&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">FormControl</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">PopoverTrigger</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">PopoverContent</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"w-auto p-0"</span> <span class="hljs-attr">align</span>=<span class="hljs-string">"start"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Calendar</span>
+            <span class="hljs-attr">mode</span>=<span class="hljs-string">"single"</span>
+            <span class="hljs-attr">selected</span>=<span class="hljs-string">{field.value</span> ?? <span class="hljs-attr">undefined</span>}
+            <span class="hljs-attr">onSelect</span>=<span class="hljs-string">{field.onChange}</span>
+            <span class="hljs-attr">initialFocus</span>
+          /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">PopoverContent</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Popover</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">FormMessage</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">FormItem</span>&gt;</span></span>
+  )}
+/&gt;
+</div></code></pre>
+<h2 id="13-fix-for-%22cannot-read-properties-of-undefined-reading-lastpage%22-error">13. Fix for &quot;Cannot read properties of undefined (reading 'last_page')&quot; Error</h2>
+<h3 id="secure-access-to-pagination-properties-in-react-components">Secure Access to Pagination Properties in React Components</h3>
+<p>We identified and fixed a JavaScript error that occurred after creating a todo. This error was related to insecure access to pagination properties when data was not fully loaded.</p>
+<p><strong>Identified Issue:</strong></p>
+<ul>
+<li>Error: &quot;Uncaught TypeError: Cannot read properties of undefined (reading 'last_page')&quot;</li>
+<li>The error occurred when accessing <code>todos.meta.last_page</code> without checking if <code>todos.meta</code> existed</li>
+<li>This issue mainly occurred during page transitions or when data was not fully loaded</li>
+</ul>
+<p><strong>Affected Files:</strong></p>
+<ul>
+<li><code>resources/js/pages/todos/index.tsx</code> - Todo list component with pagination</li>
+</ul>
+<p><strong>Key Changes:</strong></p>
+<ol>
+<li>
+<p>Added null checks for all sensitive properties:</p>
+<ul>
+<li><code>todos.meta &amp;&amp; todos.meta.last_page &gt; 1</code> to check existence before access</li>
+<li><code>todos.meta?.links &amp;&amp; todos.meta.links.map(...)</code> to avoid errors during mapping</li>
+<li>Used optional chaining operator <code>?.</code> for secure access to properties</li>
+</ul>
+</li>
+<li>
+<p>Set default values to ensure display even with missing data:</p>
+<ul>
+<li><code>todos.meta?.from || 0</code> to display 0 instead of an error if the property is undefined</li>
+<li>Similar protection for <code>to</code> and <code>total</code> properties</li>
+</ul>
+</li>
+</ol>
+<h3 id="code-snippet-indextsx">Code Snippet (index.tsx)</h3>
+<pre class="hljs"><code><div>{todos.meta &amp;&amp; todos.meta.last_page &gt; <span class="hljs-number">1</span> &amp;&amp; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"flex items-center justify-between p-4 border-t"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"text-sm text-muted-foreground"</span>&gt;</span>
+      Showing {todos.meta?.from || 0} to {todos.meta?.to || 0} of {todos.meta?.total || 0} todos
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"flex items-center space-x-2"</span>&gt;</span>
+      {todos.meta?.links &amp;&amp; todos.meta.links.map((link, i) =&gt; {
+        // Pagination code...
+      })}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+)}
+</div></code></pre>
+<p><strong>Benefits:</strong></p>
+<ol>
+<li>More robust application against partially loaded data</li>
+<li>Better user experience without visible errors</li>
+<li>Use of modern JavaScript features (optional chaining)</li>
+<li>Elegant handling of edge cases during page transitions</li>
+</ol>
+<h2 id="14-am%C3%A9lioration-des-actions-avec-les-boutons-shadcnui">14. Amélioration des Actions avec les Boutons shadcn/ui</h2>
+<h3 id="impl%C3%A9mentation-des-boutons-shadcn-ui-pour-les-actions-todo">Implémentation des Boutons shadcn UI pour les Actions Todo</h3>
+<p>Pour améliorer la cohérence visuelle et l'accessibilité des actions dans le tableau de bord des todos, nous avons remplacé les liens textuels simples par des boutons shadcn UI avec différentes variantes visuelles correspondant à leurs actions respectives.</p>
+<p><strong>Modifications apportées:</strong></p>
+<ol>
+<li>
+<p><strong>Remplacement des liens textuels par des boutons shadcn</strong></p>
+<ul>
+<li>Bouton &quot;View&quot; : utilise la variante <code>outline</code> pour une apparence subtile</li>
+<li>Bouton &quot;Edit&quot; : utilise la variante <code>secondary</code> pour une visibilité moyenne</li>
+<li>Bouton &quot;Delete&quot; : utilise la variante <code>destructive</code> avec couleur rouge pour signaler une action risquée</li>
+</ul>
+</li>
+<li>
+<p><strong>Ajout de classe <code>cursor-pointer</code></strong></p>
+<ul>
+<li>Application systématique sur tous les boutons pour garantir un retour visuel cohérent</li>
+<li>Amélioration de l'expérience utilisateur lors du survol des éléments interactifs</li>
+</ul>
+</li>
+<li>
+<p><strong>Utilisation de la taille <code>sm</code></strong></p>
+<ul>
+<li>Taille compacte pour les boutons d'action dans le tableau</li>
+<li>Optimisation de l'espace dans les cellules du tableau</li>
+</ul>
+</li>
+<li>
+<p><strong>Transition des liens vers les boutons</strong></p>
+<ul>
+<li>Remplacement des composants <code>Link</code> par des composants <code>Button</code> avec gestionnaires d'événements onClick</li>
+<li>Utilisation de <code>router.visit()</code> pour la navigation au lieu des liens href</li>
+</ul>
+</li>
+</ol>
+<p><strong>Extrait de code:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Mise en œuvre des boutons shadcn avec différentes variantes</span>
+&lt;Button
+  onClick={() =&gt; router.visit(<span class="hljs-string">`/todos/<span class="hljs-subst">${todo.id}</span>`</span>)}
+  variant=<span class="hljs-string">"outline"</span>
+  size=<span class="hljs-string">"sm"</span>
+  className=<span class="hljs-string">"mr-1 cursor-pointer"</span>
+&gt;
+  View
+&lt;<span class="hljs-regexp">/Button&gt;
+&lt;Button
+  onClick={() =&gt; router.visit(`/</span>todos/${todo.id}/edit<span class="hljs-string">`)}
+  variant="secondary"
+  size="sm"
+  className="mr-1 cursor-pointer"
+&gt;
+  Edit
+&lt;/Button&gt;
+&lt;Button
+  onClick={() =&gt; router.delete(`</span>/todos/${todo.id}<span class="hljs-string">`, {
+    preserveScroll: true,
+    preserveState: true,
+  })}
+  variant="destructive"
+  size="sm"
+  className="cursor-pointer"
+&gt;
+  Delete
+</span></div></code></pre>
+<p><strong>Avantages:</strong></p>
+<ol>
+<li>Meilleure cohérence de l'interface utilisateur à travers l'application</li>
+<li>Clarification visuelle de l'importance et de l'impact des différentes actions</li>
+<li>Retour visuel immédiat grâce à l'indication cursor-pointer</li>
+<li>Organisation spatiale améliorée dans le tableau grâce aux boutons compacts</li>
+<li>Accessibilité améliorée en respectant les standards ARIA avec les composants shadcn UI</li>
+<li>Conformité avec le système de design global</li>
+</ol>
+<h2 id="15-optimisation-des-cartes-statistiques-et-ux-du-tableau-de-bord">15. Optimisation des Cartes Statistiques et UX du Tableau de Bord</h2>
+<h3 id="am%C3%A9lioration-globale-de-linterface-et-de-lexp%C3%A9rience-utilisateur">Amélioration Globale de l'Interface et de l'Expérience Utilisateur</h3>
+<p>Pour améliorer l'expérience utilisateur et optimiser l'interface du tableau de bord, nous avons apporté plusieurs améliorations significatives aux cartes de statistiques et aux interactions du tableau de bord.</p>
+<p><strong>Modifications apportées:</strong></p>
+<ol>
+<li>
+<p><strong>Optimisation des cartes de statistiques</strong></p>
+<ul>
+<li>Suppression de la hauteur fixe <code>h-[200px]</code> pour une adaptation automatique au contenu</li>
+<li>Mise en place d'un dimensionnement adaptatif pour optimiser l'affichage sur tous les écrans</li>
+<li>Amélioration de l'équilibre visuel entre les différentes cartes de statistiques</li>
+</ul>
+</li>
+<li>
+<p><strong>Filtrage automatique des todos</strong></p>
+<ul>
+<li>Suppression du bouton de filtrage explicite au profit d'un filtrage automatique en temps réel</li>
+<li>Implémentation d'un délai (debounce) sur la recherche textuelle pour optimiser les performances</li>
+<li>Mise à jour instantanée des résultats lors de la modification des critères de filtre</li>
+</ul>
+</li>
+<li>
+<p><strong>Préservation du contexte utilisateur</strong></p>
+<ul>
+<li>Ajout de l'option <code>preserveScroll</code> aux actions de navigation pour maintenir la position de défilement</li>
+<li>Conservation du contexte visuel lors du filtrage ou de la suppression d'éléments</li>
+<li>Amélioration du retour visuel avec l'ajout systématique de <code>cursor-pointer</code> sur les éléments interactifs</li>
+</ul>
+</li>
+<li>
+<p><strong>Optimisation des performances React</strong></p>
+<ul>
+<li>Utilisation de <code>useCallback</code> pour les fonctions de filtrage afin d'éviter les rendus inutiles</li>
+<li>Gestion optimisée des dépendances dans les tableaux de dépendances des hooks <code>useEffect</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Application globale du style de curseur interactif</strong></p>
+<ul>
+<li>Ajout de la classe <code>cursor-pointer</code> à tous les boutons de l'application</li>
+<li>Extension des améliorations à tous les composants interactifs de l'application</li>
+<li>Standardisation du comportement au survol sur toutes les pages</li>
+</ul>
+</li>
+</ol>
+<h2 id="22-am%C3%A9lioration-de-lexp%C3%A9rience-utilisateur-avec-le-filtrage-automatique">22. Amélioration de l'Expérience Utilisateur avec le Filtrage Automatique</h2>
+<h3 id="filtrage-automatique-et-navigation-coh%C3%A9rente">Filtrage Automatique et Navigation Cohérente</h3>
+<p>Pour améliorer l'expérience utilisateur et simplifier la navigation, nous avons implémenté un filtrage automatique des todos et mis en place une navigation cohérente vers le tableau de bord.</p>
+<p><strong>Modifications apportées:</strong></p>
+<ol>
+<li>
+<p><strong>Filtrage automatique des todos</strong></p>
+<ul>
+<li>Suppression du bouton de filtrage explicite au profit d'un filtrage automatique en temps réel</li>
+<li>Implémentation d'un délai (debounce) sur la recherche textuelle pour optimiser les performances</li>
+<li>Mise à jour instantanée des résultats lors de la modification des critères de filtre</li>
+</ul>
+</li>
+<li>
+<p><strong>Navigation cohérente vers le tableau de bord</strong></p>
+<ul>
+<li>Redirection systématique vers le tableau de bord après les actions CRUD</li>
+<li>Remplacement de &quot;Back to Todo List&quot; par &quot;Back to Dashboard&quot;</li>
+<li>Modification des boutons d'annulation pour revenir au tableau de bord</li>
+</ul>
+</li>
+</ol>
+<p><strong>Extrait de code:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Filtrage automatique des todos</span>
+<span class="hljs-keyword">const</span> applyFilters = useCallback(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  router.get(<span class="hljs-string">'/dashboard'</span>, { search, status, priority }, {
+    <span class="hljs-attr">preserveState</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">preserveScroll</span>: <span class="hljs-literal">true</span>
+  });
+}, [search, status, priority]);
+
+<span class="hljs-comment">// Déclenchement automatique pour la recherche avec délai</span>
+useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> timeoutId = setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span> (search !== filters.search) {
+      applyFilters();
+    }
+  }, <span class="hljs-number">300</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> clearTimeout(timeoutId);
+}, [search, filters.search, applyFilters]);
+</div></code></pre>
+<p><strong>Avantages:</strong></p>
+<ol>
+<li>Expérience utilisateur plus fluide et plus naturelle</li>
+<li>Réduction du nombre de clics nécessaires pour filtrer les todos</li>
+<li>Maintien du contexte visuel pendant les opérations</li>
+<li>Rétroaction visuelle plus claire sur les éléments interactifs</li>
+<li>Performance améliorée des composants React</li>
+</ol>
+<p><strong>Extrait de code:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Carte statistique à hauteur fixe</span>
+&lt;div className=<span class="hljs-string">"border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col h-[200px]"</span>&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"text-xl font-bold mb-2"</span>&gt;</span>Pending Tasks<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span>
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"text-3xl font-bold"</span>&gt;</span>
+    {todos.data.filter(todo =&gt; todo.status === 'pending').length}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"mt-auto text-sm text-muted-foreground"</span>&gt;</span>
+    Tasks waiting to be started
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+&lt;<span class="hljs-regexp">/div&gt;
+
+/</span><span class="hljs-regexp">/ Boutons avec retour visuel et navigation cohérente
+&lt;Button 
+  variant="ghost" 
+  className="cursor-pointer"
+  onClick={() =&gt; router.get('/</span>dashboard<span class="hljs-string">')}
+&gt;
+  Cancel
+&lt;/Button&gt;
+
+&lt;Link href="/dashboard"&gt;
+  &lt;Button variant="outline" className="cursor-pointer"&gt;
+    Back to Dashboard
+  &lt;/Button&gt;
+&lt;/Link&gt;
+</span></div></code></pre>
+<p><strong>Avantages:</strong></p>
+<ol>
+<li>Présentation plus équilibrée et professionnelle du tableau de bord</li>
+<li>Réduction des variations de hauteur lors des changements de contenu</li>
+<li>Retour visuel cohérent à travers toute l'application</li>
+<li>Meilleure indication des éléments interactifs pour l'utilisateur</li>
+<li>Conformité aux attentes des utilisateurs concernant le comportement des interfaces web modernes</li>
+</ol>
+<h2 id="21-am%C3%A9lioration-de-la-hauteur-des-cartes-et-navigation-coh%C3%A9rente">21. Amélioration de la Hauteur des Cartes et Navigation Cohérente</h2>
+<h3 id="adaptation-de-la-hauteur-des-cartes-statistiques-et-harmonisation-des-interactions">Adaptation de la Hauteur des Cartes Statistiques et Harmonisation des Interactions</h3>
+<p>Suivant les principes de conception adaptative, nous avons remplacé les hauteurs fixes des cartes statistiques par des hauteurs flexibles qui s'adaptent au contenu. De plus, nous avons assuré que tous les boutons à travers l'application offrent un retour visuel cohérent et que toutes les navigations ramènent au tableau de bord central.</p>
+<p><strong>Modifications apportées:</strong></p>
+<ol>
+<li>
+<p><strong>Cartes statistiques à hauteur adaptative</strong></p>
+<ul>
+<li>Remplacement de la hauteur fixe <code>h-[200px]</code> par une hauteur flexible</li>
+<li>Adaptation automatique de la taille des cartes en fonction de leur contenu</li>
+<li>Uniformisation de l'apparence tout en préservant la hiérarchie visuelle</li>
+</ul>
+</li>
+<li>
+<p><strong>Curseur pointer sur tous les boutons</strong></p>
+<ul>
+<li>Application de la classe <code>cursor-pointer</code> sur tous les boutons de l'application</li>
+<li>Standardisation des interactions sur toutes les pages incluant:
+<ul>
+<li>Création de tâche (<code>/todos/create</code>)</li>
+<li>Édition de tâche (<code>/todos/:id/edit</code>)</li>
+<li>Visualisation de tâche (<code>/todos/:id</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Navigation cohérente vers le tableau de bord</strong></p>
+<ul>
+<li>Redirection systématique vers le tableau de bord après les actions CRUD</li>
+<li>Remplacement de &quot;Back to Todo List&quot; par &quot;Back to Dashboard&quot;</li>
+<li>Modification des boutons d'annulation pour revenir au tableau de bord</li>
+</ul>
+</li>
+</ol>
+<p><strong>Extrait de code:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Carte statistique à hauteur adaptative</span>
+&lt;div className=<span class="hljs-string">"border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col"</span>&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"text-xl font-bold mb-2"</span>&gt;</span>Pending Tasks<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span>
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"text-3xl font-bold"</span>&gt;</span>
+    {todos.data.filter(todo =&gt; todo.status === 'pending').length}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"mt-auto text-sm text-muted-foreground"</span>&gt;</span>
+    Tasks waiting to be started
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+&lt;<span class="hljs-regexp">/div&gt;
+
+/</span><span class="hljs-regexp">/ Boutons avec retour visuel et navigation cohérente
+&lt;Button 
+  variant="outline" 
+  className="cursor-pointer"
+  onClick={() =&gt; router.get('/</span>dashboard<span class="hljs-string">')}
+&gt;
+  Cancel
+&lt;/Button&gt;
+
+&lt;Link href="/dashboard"&gt;
+  &lt;Button variant="outline" className="cursor-pointer"&gt;
+    Back to Dashboard
+  &lt;/Button&gt;
+&lt;/Link&gt;
+</span></div></code></pre>
+<p><strong>Avantages:</strong></p>
+<ol>
+<li>Meilleure adaptation des cartes statistiques aux différentes quantités de contenu</li>
+<li>Expérience utilisateur plus intuitive avec des indicateurs visuels cohérents</li>
+<li>Navigation plus simple et prévisible dans toute l'application</li>
+<li>Maintien de la cohérence stylistique à travers toutes les pages</li>
+<li>Amélioration de l'accessibilité avec un retour visuel clair sur les éléments interactifs</li>
+</ol>
+<h2 id="17-nouvelle-page-daccueil-moderne-landing-page">17. Nouvelle Page d'Accueil Moderne (Landing Page)</h2>
+<h3 id="r%C3%A9alisation--2025-04-17">Réalisation : 2025-04-17</h3>
+<ul>
+<li>Création de <code>landing.tsx</code> comme nouvelle page d'accueil fidèle aux fonctionnalités réelles</li>
+<li>Design mobile-first avec représentation authentique des capacités de l'application :
+<ul>
+<li>Section Hero épurée avec liens directs vers connexion et inscription</li>
+<li>Présentation transparente des fonctionnalités disponibles, sans promesses exagérées</li>
+<li>Plan tarifaire unique gratuit centré sur la page, remplaçant l'ancien modèle multi-niveaux</li>
+<li>Navigation principale simplifiée avec uniquement les liens pertinents (Todos et Dashboard)</li>
+<li>FAQ ciblée sur l'utilisation concrète de l'application</li>
+</ul>
+</li>
+<li>Route <code>/</code> désormais liée à la landing page via Inertia dans <code>web.php</code></li>
+<li>Utilisation exclusive de composants <code>&lt;Link&gt;</code> d'Inertia pour navigation côté client</li>
+<li>Ajout classe <code>cursor-pointer</code> sur tous les éléments interactifs</li>
+<li>Correction du chemin d'image vers <code>/storage/assets/img.png</code></li>
+<li>Optimisation de l'affichage des images sur tous formats d'écran</li>
+</ul>
+<h2 id="18-mode-clair-unique">18. Mode Clair Unique</h2>
+<h3 id="date--2025-04-17">Date : 2025-04-17</h3>
+<h3 id="explications">Explications</h3>
+<p>Pour simplifier l'expérience utilisateur et garantir une cohérence visuelle, nous avons pris la décision de standardiser l'application en mode clair uniquement. Cette approche présente plusieurs avantages en termes de maintenance, performance et expérience utilisateur.</p>
+<h3 id="modifications-apport%C3%A9es">Modifications apportées</h3>
+<ul>
+<li>Refonte du hook <code>useAppearance.tsx</code> pour appliquer automatiquement le mode clair sans détection de préférence système</li>
+<li>Suppression de toute la logique conditionnelle liée au mode sombre dans les composants</li>
+<li>Retrait complet de l'option Apparence du menu des paramètres utilisateur</li>
+<li>Optimisation des styles CSS en éliminant les règles spécifiques au mode sombre</li>
+<li>Simplification des tests d'interface en réduisant le nombre de scénarios à tester</li>
+</ul>
+<h3 id="b%C3%A9n%C3%A9fices">Bénéfices</h3>
+<ul>
+<li>Expérience utilisateur plus prévisible et homogène sur toutes les plateformes</li>
+<li>Réduction significative de la complexité du code et de la surface de maintenance</li>
+<li>Amélioration des performances par l'élimination du code conditionnel lié au thème</li>
+<li>Simplification du processus de design et de développement des nouvelles fonctionnalités</li>
+</ul>
+<h2 id="16-am%C3%A9lioration-de-la-disposition-et-de-lexp%C3%A9rience-mobile">16. Amélioration de la Disposition et de l'Expérience Mobile</h2>
+<h3 id="optimisation-de-linterface-mobile">Optimisation de l'Interface Mobile</h3>
+<p>Suite à l'analyse des captures d'écran de l'application sur des appareils mobiles, nous avons identifié plusieurs points d'amélioration pour optimiser l'interface utilisateur sur les petits écrans. L'objectif était de mieux utiliser l'espace horizontal limité et d'améliorer la navigation verticale.</p>
+<p><strong>Modifications apportées:</strong></p>
+<ol>
+<li>
+<p><strong>Réorganisation des Filtres en Ligne</strong></p>
+<ul>
+<li>Remplacement de la disposition verticale des filtres par une disposition horizontale sur mobile</li>
+<li>Utilisation de <code>flex-row gap-2</code> au lieu de <code>flex-col gap-4 md:flex-row</code></li>
+<li>Les filtres de statut et de priorité sont maintenant placés côte à côte même sur petits écrans</li>
+</ul>
+</li>
+<li>
+<p><strong>Adaptation Dynamique des Sélecteurs</strong></p>
+<ul>
+<li>Implémentation de largeurs adaptatives pour les sélecteurs: <code>w-full md:w-[180px]</code></li>
+<li>Les sélecteurs occupent toute la largeur disponible sur mobile</li>
+<li>Taille fixe maintenue sur les écrans plus larges pour une apparence cohérente</li>
+</ul>
+</li>
+<li>
+<p><strong>Optimisation de l'Affichage des Badges</strong></p>
+<ul>
+<li>Amélioration de la présentation du texte &quot;In Progress&quot; pour éviter les coupures</li>
+<li>Ajout de <code>whitespace-nowrap</code> et formatage conditionnel du texte</li>
+<li>Utilisation de <code>inline-flex</code> pour un alignement optimal des éléments</li>
+</ul>
+</li>
+<li>
+<p><strong>Gestion Efficace de la Hauteur de Table</strong></p>
+<ul>
+<li>Limitation de la hauteur de la table avec un défilement vertical: <code>max-h-[calc(100vh-450px)]</code></li>
+<li>Ajout de <code>overflow-y-auto</code> pour permettre le défilement du contenu</li>
+<li>Amélioration de l'expérience utilisateur en évitant les pages excessivement longues</li>
+</ul>
+</li>
+</ol>
+<p><strong>Extrait de code:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Disposition en ligne des filtres sur mobile</span>
+&lt;div className=<span class="hljs-string">"flex flex-row gap-2 w-full md:w-auto"</span>&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Select</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{status}</span> <span class="hljs-attr">onValueChange</span>=<span class="hljs-string">{setStatus}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">SelectTrigger</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"w-full md:w-[180px] cursor-pointer"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">SelectValue</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Status"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">SelectTrigger</span>&gt;</span>
+    {/* Options de sélection */}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Select</span>&gt;</span></span>
+  
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Select</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{priority}</span> <span class="hljs-attr">onValueChange</span>=<span class="hljs-string">{setPriority}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">SelectTrigger</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"w-full md:w-[180px] cursor-pointer"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">SelectValue</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Priority"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">SelectTrigger</span>&gt;</span>
+    {/* Options de sélection */}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Select</span>&gt;</span></span>
+&lt;<span class="hljs-regexp">/div&gt;
+
+/</span><span class="hljs-regexp">/ Amélioration des badges de statut
+&lt;div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${getStatusClass(todo.status)}`}&gt;
+  {todo.status === 'in_progress' ? 'In Progress' : todo.status.charAt(0).toUpperCase() + todo.status.slice(1)}
+&lt;/</span>div&gt;
+
+<span class="hljs-comment">// Table avec hauteur limitée et défilement</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"overflow-x-auto flex-grow overflow-y-auto max-h-[calc(100vh-450px)]"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Table</span>&gt;</span>
+    {/* Contenu de la table */}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Table</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+</div></code></pre>
+<p><strong>Avantages:</strong></p>
+<ol>
+<li>Meilleure utilisation de l'espace horizontal limité sur les appareils mobiles</li>
+<li>Réduction du défilement vertical excessif grâce à la disposition optimisée</li>
+<li>Expérience utilisateur améliorée avec des badges de statut lisibles</li>
+<li>Navigation facilitée dans les listes de tâches grâce au défilement contrôlé</li>
+<li>Interface réactive qui s'adapte intelligemment aux différentes tailles d'écran</li>
+</ol>
+
+</body>
+</html>
