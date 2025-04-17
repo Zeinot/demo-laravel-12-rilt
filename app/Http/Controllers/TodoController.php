@@ -11,11 +11,44 @@ use Inertia\Inertia;
 class TodoController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Display a listing of the resource for the dashboard.
      */
-    public function __construct()
+    public function dashboard(Request $request)
     {
-        $this->middleware('auth');
+        $query = Todo::query()->where('user_id', Auth::id());
+
+        // Apply search if provided
+        if ($request->has('search')) {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('title', 'like', "%{$searchTerm}%")
+                  ->orWhere('description', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        // Apply filters if provided
+        if ($request->has('status') && $request->status !== 'all') {
+            $query->where('status', $request->status);
+        }
+        
+        if ($request->has('priority') && $request->priority !== 'all') {
+            $query->where('priority', $request->priority);
+        }
+
+        // Order by creation date (newest first)
+        $query->orderBy('created_at', 'desc');
+
+        // Paginate results
+        $todos = $query->paginate(10)->withQueryString();
+
+        return Inertia::render('dashboard', [
+            'todos' => $todos,
+            'filters' => [
+                'search' => $request->search ?? '',
+                'status' => $request->status ?? 'all',
+                'priority' => $request->priority ?? 'all',
+            ],
+        ]);
     }
 
     /**
@@ -49,7 +82,7 @@ class TodoController extends Controller
         // Paginate results
         $todos = $query->paginate(10)->withQueryString();
 
-        return Inertia::render('Todos/Index', [
+        return Inertia::render('todos/index', [
             'todos' => $todos,
             'filters' => [
                 'search' => $request->search ?? '',
@@ -64,7 +97,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Todos/Create');
+        return Inertia::render('todos/create');
     }
 
     /**
@@ -94,7 +127,7 @@ class TodoController extends Controller
         // Check if the authenticated user owns the todo
         $this->authorize('view', $todo);
 
-        return Inertia::render('Todos/Show', [
+        return Inertia::render('todos/show', [
             'todo' => $todo,
         ]);
     }
@@ -107,7 +140,7 @@ class TodoController extends Controller
         // Check if the authenticated user owns the todo
         $this->authorize('update', $todo);
 
-        return Inertia::render('Todos/Edit', [
+        return Inertia::render('todos/edit', [
             'todo' => $todo,
         ]);
     }
