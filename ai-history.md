@@ -307,6 +307,26 @@ When clicking on the Add New Todo button it does not work
    - Added the button fix information to the ai-history.md
    - Updated the presentation.md with details about the navigation implementation
 
+### [2025-04-17] New Mobile-First Landing Page
+- Created `landing.tsx` as the new landing page for the Laravel Todo App.
+- Features a clean, single-page design with:
+  - Hero section with direct links to login and register
+  - App features section highlighting existing functionality
+  - Single "Free" pricing plan showing available features
+  - FAQ section answering common questions
+  - Footer with navigation links to key pages
+- Mobile-first responsive design that works well on all device sizes
+- Updated `/` route in `web.php` to use Inertia and render the new landing page
+- Navigation links specifically point to dashboard, login, and register pages
+- Ensures all content accurately represents the app's actual functionality
+- Updated documentation and presentation to reflect this change
+
+### Timestamp
+
+2025-04-17 19:45
+   - Added the button fix information to the ai-history.md
+   - Updated the presentation.md with details about the navigation implementation
+
 ### Result
 
 - Fixed the "Add New Todo" button functionality in the dashboard

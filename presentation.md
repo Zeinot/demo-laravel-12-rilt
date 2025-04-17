@@ -944,6 +944,17 @@ useEffect(() => {
 
 ## 22. Optimisation de l'Interface pour les Appareils Mobiles
 
+## 23. Nouvelle Page d'Accueil Moderne (Landing Page)
+
+**Date : 2025-04-17**
+
+- Création de `landing.tsx` comme nouvelle page d'accueil pour l'application Todo.
+- Design mobile-first : sections Hero, fonctionnalités, tarification, FAQ et appel à l'action (CTA).
+- Branding cohérent, navigation fluide, accès rapide à l'inscription et à la connexion.
+- Route `/` désormais liée à la landing page via Inertia dans `web.php`.
+- Expérience utilisateur moderne, responsive, et adaptée à tous les appareils.
+
+
 **Titre:** Amélioration de la Disposition et de l'Expérience Mobile
 
 **Explications:** Suite à l'analyse des captures d'écran de l'application sur des appareils mobiles, nous avons identifié plusieurs points d'amélioration pour optimiser l'interface utilisateur sur les petits écrans. L'objectif était de mieux utiliser l'espace horizontal limité et d'améliorer la navigation verticale.
