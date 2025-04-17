@@ -4,15 +4,59 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class TodoController extends Controller
 {
     /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Todo::query()->where('user_id', Auth::id());
+
+        // Apply search if provided
+        if ($request->has('search')) {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('title', 'like', "%{$searchTerm}%")
+                  ->orWhere('description', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        // Apply filters if provided
+        if ($request->has('status') && $request->status !== 'all') {
+            $query->where('status', $request->status);
+        }
+        
+        if ($request->has('priority') && $request->priority !== 'all') {
+            $query->where('priority', $request->priority);
+        }
+
+        // Order by creation date (newest first)
+        $query->orderBy('created_at', 'desc');
+
+        // Paginate results
+        $todos = $query->paginate(10)->withQueryString();
+
+        return Inertia::render('Todos/Index', [
+            'todos' => $todos,
+            'filters' => [
+                'search' => $request->search ?? '',
+                'status' => $request->status ?? 'all',
+                'priority' => $request->priority ?? 'all',
+            ],
+        ]);
     }
 
     /**
@@ -20,7 +64,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Todos/Create');
     }
 
     /**
@@ -28,7 +72,18 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => ['required', Rule::in(['pending', 'in_progress', 'completed'])],
+            'priority' => ['required', Rule::in(['low', 'medium', 'high'])],
+            'due_date' => 'nullable|date',
+        ]);
+
+        $todo = Auth::user()->todos()->create($validated);
+
+        return redirect()->route('todos.index')
+            ->with('success', 'Todo created successfully.');
     }
 
     /**
@@ -36,7 +91,12 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        // Check if the authenticated user owns the todo
+        $this->authorize('view', $todo);
+
+        return Inertia::render('Todos/Show', [
+            'todo' => $todo,
+        ]);
     }
 
     /**
@@ -44,7 +104,12 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        //
+        // Check if the authenticated user owns the todo
+        $this->authorize('update', $todo);
+
+        return Inertia::render('Todos/Edit', [
+            'todo' => $todo,
+        ]);
     }
 
     /**
@@ -52,7 +117,21 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        // Check if the authenticated user owns the todo
+        $this->authorize('update', $todo);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => ['required', Rule::in(['pending', 'in_progress', 'completed'])],
+            'priority' => ['required', Rule::in(['low', 'medium', 'high'])],
+            'due_date' => 'nullable|date',
+        ]);
+
+        $todo->update($validated);
+
+        return redirect()->route('todos.index')
+            ->with('success', 'Todo updated successfully.');
     }
 
     /**
@@ -60,6 +139,12 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        // Check if the authenticated user owns the todo
+        $this->authorize('delete', $todo);
+
+        $todo->delete();
+
+        return redirect()->route('todos.index')
+            ->with('success', 'Todo deleted successfully.');
     }
 }
