@@ -195,20 +195,6 @@ Integrate Todo functionality directly into the dashboard
    - Implemented search, filter, and pagination functionality
    - Ensured todos are filtered by the authenticated user
 4. Updated the web routes
-   - Changed the dashboard route to use TodoController's dashboard method
-   - Maintained the existing resource routes for todos
-
-### Result
-
-- Dashboard now displays todo items with search and filter capabilities
-- Added summary cards showing task counts by status (Pending, In Progress, Completed)
-- Implemented responsive table for todo listing with status and priority indicators
-- Users can now manage their todos directly from the dashboard
-- Added pagination support for better handling of large todo lists
-
-### Timestamp
-
-2025-04-17 19:11
 
 ---
 
@@ -1030,3 +1016,30 @@ Nous avons continué les améliorations de l'interface utilisateur en répondant
 ```
 
 Ces modifications créent une interface plus conviviale sur mobile, avec une meilleure utilisation de l'espace horizontal et une navigation verticale facilitée par le défilement contrôlé.
+
+---
+
+## Suppression du Mode Sombre
+
+**Date : 2025-04-17**
+
+### Modifications Effectuées
+
+1. **Forcé le Mode Clair Uniquement**
+   - Modifié le hook `useAppearance.tsx` pour toujours retourner et appliquer le mode clair
+   - Supprimé toutes les fonctionnalités de détection du thème système
+   - Ajouté une logique qui force le mode clair au chargement de l'application
+
+2. **Suppression des Contrôles d'Apparence**
+   - Retiré l'option "Appearance" du menu latéral des paramètres
+   - Maintenu l'accès aux autres paramètres (Profil, Mot de passe)
+
+### Résultat
+
+- Interface utilisateur cohérente avec un thème clair unique pour tous les utilisateurs
+- Simplification de l'expérience utilisateur avec moins d'options de personnalisation
+- Amélioration de la maintenabilité en réduisant les variations d'interface possibles
+
+### Timestamp
+
+2025-04-17 21:45

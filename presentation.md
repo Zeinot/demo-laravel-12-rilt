@@ -961,6 +961,15 @@ useEffect(() => {
 - Correction du chemin d'image vers `/storage/assets/img.png`
 - Optimisation de l'affichage des images sur tous formats d'écran
 
+## 24. Suppression du Mode Sombre
+
+**Date : 2025-04-17**
+
+- Modification du système de thème pour forcer le mode clair pour tous les utilisateurs
+- Retrait de l'option Apparence du menu des paramètres
+- Simplification de l'interface utilisateur avec une expérience visuelle unifiée
+- Modification du hook `useAppearance` pour toujours appliquer le mode clair
+- Optimisation de la maintenabilité en réduisant les variations d'interface
 
 **Titre:** Amélioration de la Disposition et de l'Expérience Mobile
 

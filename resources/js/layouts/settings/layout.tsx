@@ -17,11 +17,7 @@ const sidebarNavItems: NavItem[] = [
         href: '/settings/password',
         icon: null,
     },
-    {
-        title: 'Appearance',
-        href: '/settings/appearance',
-        icon: null,
-    },
+    // Appearance option removed to force light mode for all users
 ];
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
