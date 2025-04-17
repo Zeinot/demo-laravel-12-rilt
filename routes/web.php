@@ -11,8 +11,11 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [TodoController::class, 'dashboard'])->name('dashboard');
     
-    // Todo Routes
-    Route::resource('todos', TodoController::class);
+    // Redirect /todos to /dashboard
+    Route::redirect('todos', 'dashboard');
+    
+    // Todo Routes (except index which is now handled by dashboard)
+    Route::resource('todos', TodoController::class)->except(['index']);
 });
 
 require __DIR__.'/settings.php';

@@ -115,7 +115,7 @@ class TodoController extends Controller
 
         $todo = Auth::user()->todos()->create($validated);
 
-        return redirect()->route('todos.index')
+        return redirect()->route('dashboard')
             ->with('success', 'Todo created successfully.');
     }
 
@@ -163,7 +163,7 @@ class TodoController extends Controller
 
         $todo->update($validated);
 
-        return redirect()->route('todos.index')
+        return redirect()->route('dashboard')
             ->with('success', 'Todo updated successfully.');
     }
 
@@ -177,7 +177,7 @@ class TodoController extends Controller
 
         $todo->delete();
 
-        return redirect()->route('todos.index')
+        return redirect()->route('dashboard')
             ->with('success', 'Todo deleted successfully.');
     }
 }

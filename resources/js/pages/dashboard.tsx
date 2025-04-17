@@ -17,8 +17,8 @@ import {
 } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, router } from '@inertiajs/react';
-import { FormEvent, useState } from 'react';
+import { Head, router } from '@inertiajs/react';
+import { useState, useEffect, useCallback } from 'react';
 import { PlusIcon } from 'lucide-react';
 
 interface Todo {
@@ -122,10 +122,27 @@ export default function Dashboard({ todos = {
   const [status, setStatus] = useState(filters.status);
   const [priority, setPriority] = useState(filters.priority);
 
-  const handleSearch = (e: FormEvent) => {
-    e.preventDefault();
-    router.get('/dashboard', { search, status, priority }, { preserveState: true });
-  };
+  const applyFilters = useCallback(() => {
+    router.get('/dashboard', { search, status, priority }, { 
+      preserveState: true,
+      preserveScroll: true 
+    });
+  }, [search, status, priority]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (search !== filters.search) {
+        applyFilters();
+      }
+    }, 300);
+    return () => clearTimeout(timeoutId);
+  }, [search, filters.search, applyFilters]);
+
+  useEffect(() => {
+    if (status !== filters.status || priority !== filters.priority) {
+      applyFilters();
+    }
+  }, [status, priority, filters.status, filters.priority, applyFilters]);
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
@@ -165,13 +182,13 @@ export default function Dashboard({ todos = {
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
               <h2 className="text-xl font-bold">Todo List</h2>
-              <Button onClick={() => router.visit('/todos/create')}>
+              <Button onClick={() => router.visit('/todos/create')} className="cursor-pointer">
                 <PlusIcon className="mr-2 h-4 w-4" />
                 Add New Todo
               </Button>
             </div>
             
-            <form onSubmit={handleSearch} className="border-b border-gray-200 dark:border-gray-700 p-4">
+            <form className="border-b border-gray-200 dark:border-gray-700 p-4">
               <div className="flex flex-col gap-4 md:flex-row">
                 <div className="flex flex-1 items-center space-x-2">
                   <Input
@@ -183,30 +200,28 @@ export default function Dashboard({ todos = {
                 </div>
                 <div className="flex flex-col gap-4 md:flex-row">
                   <Select value={status} onValueChange={setStatus}>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] cursor-pointer">
                       <SelectValue placeholder="Status" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Status</SelectItem>
-                      <SelectItem value="pending">Pending</SelectItem>
-                      <SelectItem value="in_progress">In Progress</SelectItem>
-                      <SelectItem value="completed">Completed</SelectItem>
+                      <SelectItem value="all" className="cursor-pointer">All Status</SelectItem>
+                      <SelectItem value="pending" className="cursor-pointer">Pending</SelectItem>
+                      <SelectItem value="in_progress" className="cursor-pointer">In Progress</SelectItem>
+                      <SelectItem value="completed" className="cursor-pointer">Completed</SelectItem>
                     </SelectContent>
                   </Select>
 
                   <Select value={priority} onValueChange={setPriority}>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] cursor-pointer">
                       <SelectValue placeholder="Priority" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Priorities</SelectItem>
-                      <SelectItem value="low">Low</SelectItem>
-                      <SelectItem value="medium">Medium</SelectItem>
-                      <SelectItem value="high">High</SelectItem>
+                      <SelectItem value="all" className="cursor-pointer">All Priorities</SelectItem>
+                      <SelectItem value="low" className="cursor-pointer">Low</SelectItem>
+                      <SelectItem value="medium" className="cursor-pointer">Medium</SelectItem>
+                      <SelectItem value="high" className="cursor-pointer">High</SelectItem>
                     </SelectContent>
                   </Select>
-
-                  <Button type="submit">Filter</Button>
                 </div>
               </div>
             </form>
@@ -251,20 +266,30 @@ export default function Dashboard({ todos = {
                         </TableCell>
                         <TableCell>{formatDate(todo.due_date)}</TableCell>
                         <TableCell className="text-right space-x-2">
-                          <Link href={`/todos/${todo.id}`}>
-                            <Button variant="ghost" size="sm">View</Button>
-                          </Link>
-                          <Link href={`/todos/${todo.id}/edit`}>
-                            <Button variant="ghost" size="sm">Edit</Button>
-                          </Link>
-                          <Button 
-                            variant="ghost" 
+                          <Button
+                            onClick={() => router.visit(`/todos/${todo.id}`)}
+                            variant="outline"
                             size="sm"
-                            onClick={() => {
-                              if (confirm('Are you sure you want to delete this todo?')) {
-                                router.delete(`/todos/${todo.id}`);
-                              }
-                            }}
+                            className="mr-1 cursor-pointer"
+                          >
+                            View
+                          </Button>
+                          <Button
+                            onClick={() => router.visit(`/todos/${todo.id}/edit`)}
+                            variant="secondary"
+                            size="sm"
+                            className="mr-1 cursor-pointer"
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            onClick={() => router.delete(`/todos/${todo.id}`, {
+                              preserveScroll: true, 
+                              preserveState: true,
+                            })}
+                            variant="destructive"
+                            size="sm"
+                            className="cursor-pointer"
                           >
                             Delete
                           </Button>
@@ -300,7 +325,7 @@ export default function Dashboard({ todos = {
                         variant={link.active ? "default" : "outline"}
                         size="sm"
                         onClick={() => router.get(link.url as string)}
-                        className="h-9 w-9"
+                        className="h-9 w-9 cursor-pointer"
                       >
                         {link.label === "&laquo; Previous" 
                           ? "←" 

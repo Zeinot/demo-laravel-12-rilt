@@ -255,29 +255,74 @@ public function dashboard(Request $request)
 
 **Titre:** Optimisation des Interactions Utilisateur dans le Tableau de Bord
 
-**Explications:** Nous avons identifié et résolu un problème de navigation empêchant le bouton "Add New Todo" de fonctionner correctement. La solution implique une modification du mode de navigation pour mieux s'intégrer avec le système de routage d'Inertia.js.
+**Explications:** Pour améliorer l'expérience utilisateur et résoudre les problèmes d'affichage du formulaire de création de tâches, nous avons identifié et résolu un problème de navigation empêchant le bouton "Add New Todo" de fonctionner correctement. La solution implique une modification du mode de navigation pour mieux s'intégrer avec le système de routage d'Inertia.js.
 
-**Fichiers concernés:**
+**Problème identifié:**
+- Erreur: "Failed to resolve import '@/components/ui/form' from 'resources/js/pages/todos/create.tsx'. Does the file exist?"
+- Le formulaire de création faisait référence à des composants UI qui n'étaient pas encore installés
+- Ces dépendances manquantes empêchaient le chargement de la page de création
 
-- `resources/js/pages/dashboard.tsx` - Modification du bouton d'ajout de tâches
+**Composants installés:**
 
-**Modifications clés:**
+- `calendar`: Pour la sélection de dates (date d'échéance des tâches)
+- `form`: Pour la structure et la validation du formulaire
+- `textarea`: Pour les descriptions longues des tâches
+- `popover`: Pour les interactions contextuelles (notamment le sélecteur de date)
 
-1. Remplacé le composant Link par un appel direct à router.visit()
-2. Modifié de `<Link href="/todos/create"><Button>...</Button></Link>` à `<Button onClick={() => router.visit('/todos/create')}>...</Button>`
-3. Cette approche assure une meilleure intégration avec le système de navigation d'Inertia.js
-4. Amélioration de l'expérience utilisateur en garantissant des transitions fluides entre les pages
+**Commandes utilisées:**
 
-### Extrait du Code (dashboard.tsx)
+```bash
+npx shadcn@latest add calendar
+npx shadcn@latest add form
+npx shadcn@latest add textarea
+npx shadcn@latest add popover
+```
+
+**Avantages:**
+
+1. Interface utilisateur moderne et cohérente grâce à la bibliothèque Shadcn UI
+2. Meilleure gestion des dates et validation des formulaires
+3. Expérience utilisateur améliorée avec des composants interactifs
+4. Intégration parfaite avec le système de thèmes de l'application
+
+### Aperçu du Formulaire (create.tsx)
 
 ```tsx
-<div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-  <h2 className="text-xl font-bold">Todo List</h2>
-  <Button onClick={() => router.visit('/todos/create')}>
-    <PlusIcon className="mr-2 h-4 w-4" />
-    Add New Todo
-  </Button>
-</div>
+<FormField
+  control={form.control}
+  name="due_date"
+  render={({ field }) => (
+    <FormItem className="flex flex-col">
+      <FormLabel>Date d'échéance</FormLabel>
+      <Popover>
+        <PopoverTrigger asChild>
+          <FormControl>
+            <Button
+              variant={"outline"}
+              className={`w-full pl-3 text-left font-normal ${!field.value && "text-muted-foreground"}`}
+            >
+              {field.value ? (
+                format(field.value, "PPP")
+              ) : (
+                <span>Sélectionner une date</span>
+              )}
+              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+            </Button>
+          </FormControl>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            mode="single"
+            selected={field.value ?? undefined}
+            onSelect={field.onChange}
+            initialFocus
+          />
+        </PopoverContent>
+      </Popover>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
 ```
 
 ## 11. Correction de la Sensibilité à la Casse dans les Chemins Inertia
@@ -317,3 +362,463 @@ public function create()
     return Inertia::render('todos/create');
 }
 ```
+
+## 12. Installation des Composants Shadcn UI pour le Formulaire de Création
+
+**Titre:** Mise en Place des Composants UI Modernes pour la Gestion des Tâches
+
+**Explications:** Pour améliorer l'expérience utilisateur et résoudre les problèmes d'affichage du formulaire de création de tâches, nous avons installé plusieurs composants Shadcn UI nécessaires au bon fonctionnement de l'application.
+
+**Problème identifié:**
+- Erreur: "Failed to resolve import '@/components/ui/form' from 'resources/js/pages/todos/create.tsx'. Does the file exist?"
+- Le formulaire de création faisait référence à des composants UI qui n'étaient pas encore installés
+- Ces dépendances manquantes empêchaient le chargement de la page de création
+
+**Composants installés:**
+
+- `calendar`: Pour la sélection de dates (date d'échéance des tâches)
+- `form`: Pour la structure et la validation du formulaire
+- `textarea`: Pour les descriptions longues des tâches
+- `popover`: Pour les interactions contextuelles (notamment le sélecteur de date)
+
+**Commandes utilisées:**
+
+```bash
+npx shadcn@latest add calendar
+npx shadcn@latest add form
+npx shadcn@latest add textarea
+npx shadcn@latest add popover
+```
+
+**Avantages:**
+
+1. Interface utilisateur moderne et cohérente grâce à la bibliothèque Shadcn UI
+2. Meilleure gestion des dates et validation des formulaires
+3. Expérience utilisateur améliorée avec des composants interactifs
+4. Intégration parfaite avec le système de thèmes de l'application
+
+### Aperçu du Formulaire (create.tsx)
+
+```tsx
+<FormField
+  control={form.control}
+  name="due_date"
+  render={({ field }) => (
+    <FormItem className="flex flex-col">
+      <FormLabel>Date d'échéance</FormLabel>
+      <Popover>
+        <PopoverTrigger asChild>
+          <FormControl>
+            <Button
+              variant={"outline"}
+              className={`w-full pl-3 text-left font-normal ${!field.value && "text-muted-foreground"}`}
+            >
+              {field.value ? (
+                format(field.value, "PPP")
+              ) : (
+                <span>Sélectionner une date</span>
+              )}
+              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+            </Button>
+          </FormControl>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            mode="single"
+            selected={field.value ?? undefined}
+            onSelect={field.onChange}
+            initialFocus
+          />
+        </PopoverContent>
+      </Popover>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+```
+
+## 13. Gestion des Erreurs et Amélioration de la Robustesse
+
+**Titre:** Sécurisation des Accès aux Données dans les Composants React
+
+**Explications:** Nous avons identifié et résolu un problème d'erreur JavaScript qui se produisait après la création d'une tâche. Cette erreur était liée à un accès non sécurisé aux propriétés de pagination lorsque les données n'étaient pas complètement chargées.
+
+**Problème identifié:**
+- Erreur: "Uncaught TypeError: Cannot read properties of undefined (reading 'last_page')"
+- L'erreur survenait lors de l'accès à `todos.meta.last_page` sans vérifier si `todos.meta` existait
+- Ce problème se manifestait principalement pendant les transitions de page ou quand les données n'étaient pas entièrement chargées
+
+**Fichiers concernés:**
+
+- `resources/js/pages/todos/index.tsx` - Composant de liste des tâches avec pagination
+
+**Modifications clés:**
+
+1. Ajout de vérifications de nullité (null checks) pour toutes les propriétés sensibles:
+   - `todos.meta && todos.meta.last_page > 1` pour vérifier l'existence avant l'accès
+   - `todos.meta?.links && todos.meta.links.map(...)` pour éviter les erreurs lors du mapping
+   - Utilisation de l'opérateur de chaînage optionnel `?.` pour un accès sécurisé aux propriétés
+
+2. Mise en place de valeurs par défaut pour assurer l'affichage même en cas de données manquantes:
+   - `todos.meta?.from || 0` pour afficher 0 plutôt qu'une erreur si la propriété est indéfinie
+   - Protection similaire pour les propriétés `to` et `total` 
+
+### Extrait du Code (index.tsx)
+
+```tsx
+{todos.meta && todos.meta.last_page > 1 && (
+  <div className="flex items-center justify-between p-4 border-t">
+    <div className="text-sm text-muted-foreground">
+      Showing {todos.meta?.from || 0} to {todos.meta?.to || 0} of {todos.meta?.total || 0} todos
+    </div>
+    <div className="flex items-center space-x-2">
+      {todos.meta?.links && todos.meta.links.map((link, i) => {
+        // Code de pagination...
+      })}
+    </div>
+  </div>
+)}
+```
+
+**Avantages:**
+
+1. Application plus robuste face aux données partiellement chargées
+2. Meilleure expérience utilisateur sans erreurs visibles
+3. Utilisation des fonctionnalités modernes de JavaScript (chaînage optionnel)
+4. Gestion élégante des cas limites lors des transitions de page
+
+## 14. Fix for "Cannot read properties of undefined (reading 'last_page')" Error
+
+**Title:** Secure Access to Pagination Properties in React Components
+
+**Explanation:** We identified and fixed a JavaScript error that occurred after creating a todo. This error was related to insecure access to pagination properties when data was not fully loaded.
+
+**Identified Issue:**
+- Error: "Uncaught TypeError: Cannot read properties of undefined (reading 'last_page')"
+- The error occurred when accessing `todos.meta.last_page` without checking if `todos.meta` existed
+- This issue mainly occurred during page transitions or when data was not fully loaded
+
+**Affected Files:**
+
+- `resources/js/pages/todos/index.tsx` - Todo list component with pagination
+
+**Key Changes:**
+
+1. Added null checks for all sensitive properties:
+   - `todos.meta && todos.meta.last_page > 1` to check existence before access
+   - `todos.meta?.links && todos.meta.links.map(...)` to avoid errors during mapping
+   - Used optional chaining operator `?.` for secure access to properties
+
+2. Set default values to ensure display even with missing data:
+   - `todos.meta?.from || 0` to display 0 instead of an error if the property is undefined
+   - Similar protection for `to` and `total` properties
+
+### Code Snippet (index.tsx)
+
+```tsx
+{todos.meta && todos.meta.last_page > 1 && (
+  <div className="flex items-center justify-between p-4 border-t">
+    <div className="text-sm text-muted-foreground">
+      Showing {todos.meta?.from || 0} to {todos.meta?.to || 0} of {todos.meta?.total || 0} todos
+    </div>
+    <div className="flex items-center space-x-2">
+      {todos.meta?.links && todos.meta.links.map((link, i) => {
+        // Pagination code...
+      })}
+    </div>
+  </div>
+)}
+```
+
+**Benefits:**
+
+1. More robust application against partially loaded data
+2. Better user experience without visible errors
+3. Use of modern JavaScript features (optional chaining)
+4. Elegant handling of edge cases during page transitions
+
+## 15. Correction de la Sensibilité à la Casse dans les Chemins Inertia
+
+**Titre:** Résolution des Problèmes de Navigation liés à la Casse des Fichiers
+
+**Explications:** Nous avons identifié et résolu un problème critique lié à la sensibilité à la casse dans les chemins de fichiers. Cette incohérence empêchait le système de trouver les composants React lors de la navigation.
+
+**Problème identifié:**
+- Erreur: "Page not found: ./pages/Todos/Create.tsx"
+- Le contrôleur utilisait des chemins capitalisés (ex: 'Todos/Create')
+- Les fichiers réels utilisaient une structure en minuscules (ex: 'todos/create.tsx')
+
+**Fichiers concernés:**
+
+- `app/Http/Controllers/TodoController.php` - Correction des chemins dans les méthodes render()
+- `resources/js/pages/todos/` - Structure de fichiers en minuscules
+
+**Modifications clés:**
+
+1. Alignement des chemins Inertia sur la structure réelle du système de fichiers
+2. Modification de tous les appels Inertia::render() pour utiliser des chemins en minuscules:
+   - 'Todos/Create' → 'todos/create'
+   - 'Todos/Index' → 'todos/index'
+   - 'Todos/Show' → 'todos/show'
+   - 'Todos/Edit' → 'todos/edit'
+3. Application d'une convention de nommage cohérente dans toute l'application
+
+### Extrait du Code (TodoController.php)
+
+```php
+/**
+ * Show the form for creating a new resource.
+ */
+public function create()
+{
+    return Inertia::render('todos/create');
+}
+```
+
+## 16. Installation des Composants Shadcn UI pour le Formulaire de Création
+
+**Titre:** Mise en Place des Composants UI Modernes pour la Gestion des Tâches
+
+**Explications:** Pour améliorer l'expérience utilisateur et résoudre les problèmes d'affichage du formulaire de création de tâches, nous avons installé plusieurs composants Shadcn UI nécessaires au bon fonctionnement de l'application.
+
+**Problème identifié:**
+- Erreur: "Failed to resolve import '@/components/ui/form' from 'resources/js/pages/todos/create.tsx'. Does the file exist?"
+- Le formulaire de création faisait référence à des composants UI qui n'étaient pas encore installés
+- Ces dépendances manquantes empêchaient le chargement de la page de création
+
+**Composants installés:**
+
+- `calendar`: Pour la sélection de dates (date d'échéance des tâches)
+- `form`: Pour la structure et la validation du formulaire
+- `textarea`: Pour les descriptions longues des tâches
+- `popover`: Pour les interactions contextuelles (notamment le sélecteur de date)
+
+**Commandes utilisées:**
+
+```bash
+npx shadcn@latest add calendar
+npx shadcn@latest add form
+npx shadcn@latest add textarea
+npx shadcn@latest add popover
+```
+
+**Avantages:**
+
+1. Interface utilisateur moderne et cohérente grâce à la bibliothèque Shadcn UI
+2. Meilleure gestion des dates et validation des formulaires
+3. Expérience utilisateur améliorée avec des composants interactifs
+4. Intégration parfaite avec le système de thèmes de l'application
+
+### Aperçu du Formulaire (create.tsx)
+
+```tsx
+<FormField
+  control={form.control}
+  name="due_date"
+  render={({ field }) => (
+    <FormItem className="flex flex-col">
+      <FormLabel>Date d'échéance</FormLabel>
+      <Popover>
+        <PopoverTrigger asChild>
+          <FormControl>
+            <Button
+              variant={"outline"}
+              className={`w-full pl-3 text-left font-normal ${!field.value && "text-muted-foreground"}`}
+            >
+              {field.value ? (
+                format(field.value, "PPP")
+              ) : (
+                <span>Sélectionner une date</span>
+              )}
+              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+            </Button>
+          </FormControl>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            mode="single"
+            selected={field.value ?? undefined}
+            onSelect={field.onChange}
+            initialFocus
+          />
+        </PopoverContent>
+      </Popover>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+```
+
+## 17. Fix for "Cannot read properties of undefined (reading 'last_page')" Error
+
+**Title:** Secure Access to Pagination Properties in React Components
+
+**Explanation:** We identified and fixed a JavaScript error that occurred after creating a todo. This error was related to insecure access to pagination properties when data was not fully loaded.
+
+**Identified Issue:**
+- Error: "Uncaught TypeError: Cannot read properties of undefined (reading 'last_page')"
+- The error occurred when accessing `todos.meta.last_page` without checking if `todos.meta` existed
+- This issue mainly occurred during page transitions or when data was not fully loaded
+
+**Affected Files:**
+
+- `resources/js/pages/todos/index.tsx` - Todo list component with pagination
+
+**Key Changes:**
+
+1. Added null checks for all sensitive properties:
+   - `todos.meta && todos.meta.last_page > 1` to check existence before access
+   - `todos.meta?.links && todos.meta.links.map(...)` to avoid errors during mapping
+   - Used optional chaining operator `?.` for secure access to properties
+
+2. Set default values to ensure display even with missing data:
+   - `todos.meta?.from || 0` to display 0 instead of an error if the property is undefined
+   - Similar protection for `to` and `total` properties
+
+### Code Snippet (index.tsx)
+
+```tsx
+{todos.meta && todos.meta.last_page > 1 && (
+  <div className="flex items-center justify-between p-4 border-t">
+    <div className="text-sm text-muted-foreground">
+      Showing {todos.meta?.from || 0} to {todos.meta?.to || 0} of {todos.meta?.total || 0} todos
+    </div>
+    <div className="flex items-center space-x-2">
+      {todos.meta?.links && todos.meta.links.map((link, i) => {
+        // Pagination code...
+      })}
+    </div>
+  </div>
+)}
+```
+
+**Benefits:**
+
+1. More robust application against partially loaded data
+2. Better user experience without visible errors
+3. Use of modern JavaScript features (optional chaining)
+4. Elegant handling of edge cases during page transitions
+
+## 18. Amélioration des Actions avec les Boutons shadcn/ui
+
+**Titre:** Implémentation des Boutons shadcn UI pour les Actions Todo
+
+**Explications:** Pour améliorer la cohérence visuelle et l'accessibilité des actions dans le tableau de bord des todos, nous avons remplacé les liens textuels simples par des boutons shadcn UI avec différentes variantes visuelles correspondant à leurs actions respectives.
+
+**Modifications apportées:**
+
+1. **Remplacement des liens textuels par des boutons shadcn**
+   - Bouton "View" : utilise la variante `outline` pour une apparence subtile
+   - Bouton "Edit" : utilise la variante `secondary` pour une visibilité moyenne
+   - Bouton "Delete" : utilise la variante `destructive` avec couleur rouge pour signaler une action risquée
+
+2. **Ajout de classe `cursor-pointer`**
+   - Application systématique sur tous les boutons pour garantir un retour visuel cohérent
+   - Amélioration de l'expérience utilisateur lors du survol des éléments interactifs
+
+3. **Utilisation de la taille `sm`**
+   - Taille compacte pour les boutons d'action dans le tableau
+   - Optimisation de l'espace dans les cellules du tableau
+
+4. **Transition des liens vers les boutons**
+   - Remplacement des composants `Link` par des composants `Button` avec gestionnaires d'événements onClick
+   - Utilisation de `router.visit()` pour la navigation au lieu des liens href
+
+**Extrait de code:**
+
+```tsx
+// Mise en œuvre des boutons shadcn avec différentes variantes
+<Button
+  onClick={() => router.visit(`/todos/${todo.id}`)}
+  variant="outline"
+  size="sm"
+  className="mr-1 cursor-pointer"
+>
+  View
+</Button>
+<Button
+  onClick={() => router.visit(`/todos/${todo.id}/edit`)}
+  variant="secondary"
+  size="sm"
+  className="mr-1 cursor-pointer"
+>
+  Edit
+</Button>
+<Button
+  onClick={() => router.delete(`/todos/${todo.id}`, {
+    preserveScroll: true,
+    preserveState: true,
+  })}
+  variant="destructive"
+  size="sm"
+  className="cursor-pointer"
+>
+  Delete
+</Button>
+```
+
+**Avantages:**
+
+1. Cohérence visuelle avec le reste de l'interface utilisateur
+2. Hiérarchie visuelle claire avec des styles distincts pour différentes actions
+3. Accessibilité améliorée grâce à l'utilisation des composants boutons sémantiques
+4. Retour visuel cohérent sur les éléments interactifs
+5. Conformité avec le système de design shadcn UI
+
+## 19. Amélioration des Interactions et de la Réactivité de l'Interface Todo
+
+**Titre:** Optimisation des Interactions et de la Réactivité de l'Interface Todo
+
+**Explications:** Pour créer une expérience plus fluide et plus réactive pour les utilisateurs, nous avons implémenté plusieurs améliorations UX/UI sur le tableau de bord des todos, en mettant l'accent sur un filtrage instantané et des interactions plus naturelles.
+
+**Modifications apportées:**
+
+1. **Filtrage automatique**
+   - Suppression du bouton de filtrage explicite
+   - Application des filtres en temps réel lors des changements de critères
+   - Utilisation d'un mécanisme de debounce pour la recherche textuelle
+
+2. **Conservation de la position de défilement**
+   - Ajout de l'option `preserveScroll: true` à toutes les actions de navigation
+   - Maintien du contexte visuel lors du filtrage, de la suppression ou de la modification
+   - Réduction des perturbations visuelles lors de l'interaction avec les listes longues
+
+3. **Amélioration des indicateurs visuels**
+   - Ajout de la classe `cursor-pointer` sur tous les éléments interactifs
+   - Amélioration des états de survol pour les boutons et les liens
+   - Rétroaction visuelle plus claire sur les éléments cliquables
+
+4. **Optimisations des performances React**
+   - Utilisation de `useCallback` pour les fonctions de filtrage
+   - Configuration correcte des dépendances des hooks useEffect
+   - Prévention des rendus inutiles lors des changements d'état
+
+**Extrait de code (dashboard.tsx):**
+
+```tsx
+// Application automatique des filtres avec debounce pour la recherche
+const applyFilters = useCallback(() => {
+  router.get('/dashboard', { search, status, priority }, { 
+    preserveState: true,
+    preserveScroll: true
+  });
+}, [search, status, priority]);
+
+// Déclenchement automatique pour la recherche avec délai
+useEffect(() => {
+  const timeoutId = setTimeout(() => {
+    if (search !== filters.search) {
+      applyFilters();
+    }
+  }, 300);
+  return () => clearTimeout(timeoutId);
+}, [search, filters.search, applyFilters]);
+```
+
+**Avantages:**
+
+1. Expérience utilisateur plus fluide et plus naturelle
+2. Réduction du nombre de clics nécessaires pour filtrer les todos
+3. Maintien du contexte visuel pendant les opérations
+4. Rétroaction visuelle plus claire sur les éléments interactifs
+5. Performance améliorée des composants React

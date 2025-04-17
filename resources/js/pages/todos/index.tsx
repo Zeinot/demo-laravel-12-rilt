@@ -231,13 +231,13 @@ export default function Index({ todos, filters }: Props) {
             </TableBody>
           </Table>
 
-          {todos.meta.last_page > 1 && (
+          {todos.meta && todos.meta.last_page > 1 && (
             <div className="flex items-center justify-between p-4 border-t">
               <div className="text-sm text-muted-foreground">
-                Showing {todos.meta.from} to {todos.meta.to} of {todos.meta.total} todos
+                Showing {todos.meta?.from || 0} to {todos.meta?.to || 0} of {todos.meta?.total || 0} todos
               </div>
               <div className="flex items-center space-x-2">
-                {todos.meta.links.map((link, i) => {
+                {todos.meta?.links && todos.meta.links.map((link, i) => {
                   if (link.url === null) {
                     return (
                       <div 
@@ -254,7 +254,7 @@ export default function Index({ todos, filters }: Props) {
                       key={i}
                       variant={link.active ? "default" : "outline"}
                       size="sm"
-                      onClick={() => router.get(link.url)}
+                      onClick={() => link.url && router.get(link.url)}
                       className="h-9 w-9"
                     >
                       {link.label === "&laquo; Previous" 
