@@ -948,11 +948,18 @@ useEffect(() => {
 
 **Date : 2025-04-17**
 
-- Création de `landing.tsx` comme nouvelle page d'accueil pour l'application Todo.
-- Design mobile-first : sections Hero, fonctionnalités, tarification, FAQ et appel à l'action (CTA).
-- Branding cohérent, navigation fluide, accès rapide à l'inscription et à la connexion.
-- Route `/` désormais liée à la landing page via Inertia dans `web.php`.
-- Expérience utilisateur moderne, responsive, et adaptée à tous les appareils.
+- Création de `landing.tsx` comme nouvelle page d'accueil pour l'application Todo
+- Design mobile-first avec sections :
+  - Hero avec liens directs vers connexion et inscription
+  - Présentation des fonctionnalités existantes
+  - Plan tarifaire unique gratuit
+  - FAQ pour répondre aux questions courantes
+  - Pied de page avec liens de navigation
+- Route `/` désormais liée à la landing page via Inertia dans `web.php`
+- Utilisation exclusive de composants `<Link>` d'Inertia pour navigation côté client
+- Ajout classe `cursor-pointer` sur tous les éléments interactifs
+- Correction du chemin d'image vers `/storage/assets/img.png`
+- Optimisation de l'affichage des images sur tous formats d'écran
 
 
 **Titre:** Amélioration de la Disposition et de l'Expérience Mobile

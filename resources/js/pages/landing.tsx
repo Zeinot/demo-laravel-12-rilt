@@ -216,10 +216,10 @@ export default function Landing() {
                 </div>
               </div>
               <div className="mt-16 flow-root sm:mt-24">
-                <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-gray-900/10 ring-inset lg:-m-4 lg:rounded-2xl lg:p-4">
+                <div className="mx-auto -my-2 rounded-xl bg-gray-900/5 py-2 px-2 ring-1 ring-gray-900/10 ring-inset lg:-my-4 lg:rounded-2xl lg:py-4 lg:px-4 max-w-3xl">
                   <img
                     alt="App screenshot"
-                    src="/storage/img.png"
+                    src="/storage/assets/img.png"
                     width={1200}
                     height={700}
                     className="rounded-md shadow-2xl ring-1 ring-gray-900/10"
@@ -388,7 +388,7 @@ export default function Landing() {
             <div className="mt-10">
               <img
                 alt="App screenshot"
-                src="/storage/img.png"
+                src="/storage/assets/img.png"
                 width={800}
                 height={500}
                 className="rounded-md shadow-2xl ring-1 ring-gray-900/10 mx-auto"

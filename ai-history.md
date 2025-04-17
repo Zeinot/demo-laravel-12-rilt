@@ -308,7 +308,7 @@ When clicking on the Add New Todo button it does not work
    - Updated the presentation.md with details about the navigation implementation
 
 ### [2025-04-17] New Mobile-First Landing Page
-- Created `landing.tsx` as the new landing page for the Laravel Todo App.
+- Created `landing.tsx` as the new landing page for the Laravel Todo App
 - Features a clean, single-page design with:
   - Hero section with direct links to login and register
   - App features section highlighting existing functionality
@@ -319,13 +319,18 @@ When clicking on the Add New Todo button it does not work
 - Updated `/` route in `web.php` to use Inertia and render the new landing page
 - Navigation links specifically point to dashboard, login, and register pages
 - Ensures all content accurately represents the app's actual functionality
-- Updated documentation and presentation to reflect this change
+
+### [2025-04-17] Landing Page Updates
+- Converted all anchor (`<a>`) tags to Inertia.js `<Link>` components for client-side navigation
+- Added proper `route()` helper usage for all internal links
+- Fixed image path to use `/storage/assets/img.png` with proper Laravel storage configuration
+- Added cursor-pointer class to all interactive elements for consistent user feedback
+- Fixed image container styling to be symmetrical on all screen sizes
+- Updated .gitignore to ensure assets directory is included in version control
 
 ### Timestamp
 
-2025-04-17 19:45
-   - Added the button fix information to the ai-history.md
-   - Updated the presentation.md with details about the navigation implementation
+2025-04-17 21:25
 
 ### Result
 
