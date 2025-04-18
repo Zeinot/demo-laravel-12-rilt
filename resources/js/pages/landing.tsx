@@ -410,7 +410,7 @@ export default function Landing() {
               />
             </Link>
             <p className="mt-6 text-sm text-gray-600">
-              © {new Date().getFullYear()} Laravel Todo App. All rights reserved.
+              © {new Date().getFullYear()} By Omar Sarsar. All rights reserved.
             </p>
           </div>
         </div>
