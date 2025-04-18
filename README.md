@@ -1,12 +1,12 @@
-git clone https://github.com/Zeinot/demo-laravel-12-rilt.git
-cd demo-laravel-12-rilt
-copy & rename .env
-npm i --legacy-peer-deps
-composer install
-php artisan migrate
-php artisan storage:link
-in two different terminals :
-php artisan serve
-npm run dev
+git clone https://github.com/Zeinot/demo-laravel-12-rilt.git <br/>
+cd demo-laravel-12-rilt <br/>
+copy & rename .env <br/>
+npm i --legacy-peer-deps <br/>
+composer install <br/>
+php artisan migrate <br/>
+php artisan storage:link <br/>
+in two different terminals : <br/>
+php artisan serve <br/>
+npm run dev <br/>
 
-go to localhost:8000
+go to localhost:8000 <br/>
