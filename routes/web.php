@@ -10,10 +10,10 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [TodoController::class, 'dashboard'])->name('dashboard');
-    
+
     // Redirect /todos to /dashboard
     Route::redirect('todos', 'dashboard');
-    
+
     // Todo Routes (except index which is now handled by dashboard)
     Route::resource('todos', TodoController::class)->except(['index']);
 });

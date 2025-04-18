@@ -13,7 +13,7 @@ class TodoPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true; // Any authenticated user can view their todos
+        return $user->id === $todo->user_id;
     }
 
     /**
@@ -29,7 +29,7 @@ class TodoPolicy
      */
     public function create(User $user): bool
     {
-        return true; // Any authenticated user can create todos
+       return $user->id === $todo->user_id;
     }
 
     /**

@@ -1,19 +1,19 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue 
+  SelectValue
 } from '@/components/ui/select';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
 } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
@@ -99,33 +99,33 @@ const getPriorityClass = (priority: string) => {
   }
 };
 
-export default function Dashboard({ todos = { 
-  data: [], 
+export default function Dashboard({ todos = {
+  data: [],
   links: {
     first: '',
     last: '',
     prev: null,
     next: null
   },
-  meta: { 
-    current_page: 1, 
-    from: 0, 
-    last_page: 1, 
+  meta: {
+    current_page: 1,
+    from: 0,
+    last_page: 1,
     links: [],
-    path: '', 
-    per_page: 10, 
-    to: 0, 
-    total: 0 
-  } 
+    path: '',
+    per_page: 10,
+    to: 0,
+    total: 0
+  }
 }, filters = { search: '', status: 'all', priority: 'all' } }: Props) {
   const [search, setSearch] = useState(filters.search);
   const [status, setStatus] = useState(filters.status);
   const [priority, setPriority] = useState(filters.priority);
 
   const applyFilters = useCallback(() => {
-    router.get('/dashboard', { search, status, priority }, { 
+    router.get('/dashboard', { search, status, priority }, {
       preserveState: true,
-      preserveScroll: true 
+      preserveScroll: true
     });
   }, [search, status, priority]);
 
@@ -147,6 +147,7 @@ export default function Dashboard({ todos = {
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Dashboard" />
+      
       <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
         <div className="grid auto-rows-min gap-4 md:grid-cols-3">
           <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 p-4 flex flex-col">
@@ -177,7 +178,7 @@ export default function Dashboard({ todos = {
             </div>
           </div>
         </div>
-        
+
         <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-hidden rounded-xl border bg-white dark:bg-gray-800 flex-1">
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
@@ -187,7 +188,7 @@ export default function Dashboard({ todos = {
                 Add New Todo
               </Button>
             </div>
-            
+
             <form className="border-b border-gray-200 dark:border-gray-700 p-4">
               <div className="flex flex-col gap-4 md:flex-row">
                 <div className="flex flex-1 items-center space-x-2">
@@ -225,7 +226,7 @@ export default function Dashboard({ todos = {
                 </div>
               </div>
             </form>
-            
+
             <div className="overflow-x-auto flex-grow overflow-y-auto max-h-[calc(100vh-450px)]">
               <Table>
                 <TableHeader>
@@ -284,7 +285,7 @@ export default function Dashboard({ todos = {
                           </Button>
                           <Button
                             onClick={() => router.delete(`/todos/${todo.id}`, {
-                              preserveScroll: true, 
+                              preserveScroll: true,
                               preserveState: true,
                             })}
                             variant="destructive"
@@ -300,7 +301,7 @@ export default function Dashboard({ todos = {
                 </TableBody>
               </Table>
             </div>
-            
+
             {todos.meta && todos.meta.last_page > 1 && (
               <div className="flex items-center justify-between p-4 border-t border-gray-200 dark:border-gray-700">
                 <div className="text-sm text-muted-foreground">
@@ -310,8 +311,8 @@ export default function Dashboard({ todos = {
                   {todos.meta.links.map((link, i) => {
                     if (link.url === null) {
                       return (
-                        <div 
-                          key={i} 
+                        <div
+                          key={i}
                           className="h-9 w-9 flex items-center justify-center rounded-md text-sm opacity-50"
                         >
                           {link.label === "&laquo; Previous" ? "←" : "→"}
@@ -327,10 +328,10 @@ export default function Dashboard({ todos = {
                         onClick={() => router.get(link.url as string)}
                         className="h-9 w-9 cursor-pointer"
                       >
-                        {link.label === "&laquo; Previous" 
-                          ? "←" 
-                          : link.label === "Next &raquo;" 
-                          ? "→" 
+                        {link.label === "&laquo; Previous"
+                          ? "←"
+                          : link.label === "Next &raquo;"
+                          ? "→"
                           : link.label}
                       </Button>
                     );

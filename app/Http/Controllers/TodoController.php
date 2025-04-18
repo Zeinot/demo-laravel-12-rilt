@@ -30,7 +30,7 @@ class TodoController extends Controller
         if ($request->has('status') && $request->status !== 'all') {
             $query->where('status', $request->status);
         }
-        
+
         if ($request->has('priority') && $request->priority !== 'all') {
             $query->where('priority', $request->priority);
         }
@@ -71,7 +71,7 @@ class TodoController extends Controller
         if ($request->has('status') && $request->status !== 'all') {
             $query->where('status', $request->status);
         }
-        
+
         if ($request->has('priority') && $request->priority !== 'all') {
             $query->where('priority', $request->priority);
         }
@@ -105,6 +105,7 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+          $this->authorize('create', $todo);
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
