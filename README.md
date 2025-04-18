@@ -1,3 +1,8 @@
+requirements : <br/>
+php 8 <br/>
+composer <br/>
+node<br/>
+<br/>
 git clone https://github.com/Zeinot/demo-laravel-12-rilt.git <br/>
 cd demo-laravel-12-rilt <br/>
 copy & rename .env <br/>
